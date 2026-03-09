@@ -1,0 +1,26 @@
+/* ═══════════════════════════════════════════════════════════════
+   LAYOUT — App Shell
+   ═══════════════════════════════════════════════════════════════ */
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+}
+
+.layout__content {
+  flex: 1;
+  margin-left: var(--sidebar-width);
+  transition: margin-left var(--duration-slow) var(--ease-smooth);
+  position: relative;
+}
+
+.layout--sidebar-collapsed .layout__content {
+  margin-left: var(--sidebar-collapsed);
+}
+
+@media (max-width: 768px) {
+  .layout__content {
+    margin-left: 0;
+  }
+}

@@ -1,0 +1,408 @@
+{
+  "student_id": "default_student",
+  "name": "baby",
+  "department": "CSE",
+  "year": "2nd Year",
+  "semester": "4th Semester",
+  "section": "B",
+  "subjects": {
+    "DAA": {
+      "units": {
+        "1": {
+          "topics_studied": [
+            "Started study session \u2014 Unit 1: Introduction",
+            "What is DFS?",
+            "Explain DFS algorithm",
+            "Explain Big O notation in simple terms",
+            "What is algorithm complexity?"
+          ],
+          "questions_asked": [],
+          "last_visited": "2026-03-09T16:44:31.349712",
+          "confidence": 0.0,
+          "interaction_count": 13
+        },
+        "2": {
+          "topics_studied": [
+            "Started study session \u2014 Unit 2: Divide and Conquer, Greedy Approaches"
+          ],
+          "questions_asked": [],
+          "last_visited": "2026-03-09T16:58:22.300700",
+          "confidence": 0.0,
+          "interaction_count": 1
+        }
+      },
+      "total_interactions": 14,
+      "last_active": "2026-03-09T16:58:22.300700"
+    },
+    "OB": {
+      "units": {
+        "2": {
+          "topics_studied": [
+            "I want to study OB Unit 2"
+          ],
+          "questions_asked": [],
+          "last_visited": "2026-03-07T06:41:05.842455",
+          "confidence": 0.0,
+          "interaction_count": 3
+        },
+        "5": {
+          "topics_studied": [
+            "Started study session \u2014 Unit 5: Dynamics of Organizational Behaviour"
+          ],
+          "questions_asked": [],
+          "last_visited": "2026-03-08T07:38:20.489887",
+          "confidence": 0.0,
+          "interaction_count": 3
+        },
+        "1": {
+          "topics_studied": [
+            "Started study session \u2014 Unit 1: Focus and Purpose",
+            "What is organizational behaviour?",
+            "What is perception in OB?",
+            "What is attitude?"
+          ],
+          "questions_asked": [],
+          "last_visited": "2026-03-08T12:49:44.839843",
+          "confidence": 0.0,
+          "interaction_count": 9
+        }
+      },
+      "total_interactions": 15,
+      "last_active": "2026-03-08T12:49:44.839843"
+    },
+    "APJ": {
+      "units": {
+        "2": {
+          "topics_studied": [
+            "Started study session \u2014 Unit 2: Collection Framework & Generics",
+            "Started study session \u2014 Unit 2: Inheritance, Packages and Interfaces"
+          ],
+          "questions_asked": [],
+          "last_visited": "2026-03-08T08:04:05.354525",
+          "confidence": 0.0,
+          "interaction_count": 4
+        },
+        "5": {
+          "topics_studied": [
+            "Started study session \u2014 Unit 5: Servlets & JSP",
+            "Make it brief:",
+            "crsip version",
+            "types of inheritance",
+            "Started study session \u2014 Unit 5: JavaFX Event Handling, Controls and Components"
+          ],
+          "questions_asked": [],
+          "last_visited": "2026-03-08T05:57:51.173074",
+          "confidence": 0.0,
+          "interaction_count": 7
+        }
+      },
+      "total_interactions": 11,
+      "last_active": "2026-03-08T08:04:05.354525"
+    },
+    "COA": {
+      "units": {
+        "3": {
+          "topics_studied": [
+            "Started study session \u2014 Unit 3: Processor"
+          ],
+          "questions_asked": [],
+          "last_visited": "2026-03-09T16:18:06.601931",
+          "confidence": 0.0,
+          "interaction_count": 8
+        },
+        "4": {
+          "topics_studied": [
+            "Started study session \u2014 Unit 4: Memory Hierarchy"
+          ],
+          "questions_asked": [],
+          "last_visited": "2026-03-08T17:51:04.417032",
+          "confidence": 0.0,
+          "interaction_count": 4
+        },
+        "1": {
+          "topics_studied": [
+            "Started study session \u2014 Unit 1: Introduction"
+          ],
+          "questions_asked": [],
+          "last_visited": "2026-03-08T09:32:09.907076",
+          "confidence": 0.0,
+          "interaction_count": 1
+        },
+        "2": {
+          "topics_studied": [
+            "Started study session \u2014 Unit 2: Instruction Set Architecture (RISC-V)"
+          ],
+          "questions_asked": [],
+          "last_visited": "2026-03-08T16:23:53.089225",
+          "confidence": 0.0,
+          "interaction_count": 1
+        },
+        "5": {
+          "topics_studied": [
+            "Started study session \u2014 Unit 5: Storage and I/O"
+          ],
+          "questions_asked": [],
+          "last_visited": "2026-03-08T18:18:50.605346",
+          "confidence": 0.0,
+          "interaction_count": 2
+        }
+      },
+      "total_interactions": 16,
+      "last_active": "2026-03-09T16:18:06.601931"
+    },
+    "DM": {
+      "units": {
+        "4": {
+          "topics_studied": [
+            "Started study session \u2014 Unit 4: Logic"
+          ],
+          "questions_asked": [],
+          "last_visited": "2026-03-08T07:45:19.375362",
+          "confidence": 0.0,
+          "interaction_count": 1
+        }
+      },
+      "total_interactions": 1,
+      "last_active": "2026-03-08T07:45:19.375362"
+    }
+  },
+  "total_interactions": 57,
+  "last_active": "2026-03-09T16:58:22.300700",
+  "first_seen": "2026-03-07T06:20:21.695595",
+  "sessions": [
+    {
+      "subject_code": "DAA",
+      "unit_number": 1,
+      "type": "study",
+      "timestamp": "2026-03-07T06:20:28.315326"
+    },
+    {
+      "subject_code": "DAA",
+      "unit_number": 1,
+      "type": "study",
+      "timestamp": "2026-03-07T06:37:26.440386"
+    },
+    {
+      "subject_code": "DAA",
+      "unit_number": 1,
+      "type": "study",
+      "timestamp": "2026-03-07T06:40:03.457966"
+    },
+    {
+      "subject_code": "DAA",
+      "unit_number": 1,
+      "type": "study",
+      "timestamp": "2026-03-07T06:41:03.166572"
+    },
+    {
+      "subject_code": "DAA",
+      "unit_number": 1,
+      "type": "study",
+      "timestamp": "2026-03-07T07:56:14.690316"
+    },
+    {
+      "subject_code": "APJ",
+      "unit_number": 2,
+      "type": "study",
+      "timestamp": "2026-03-07T08:10:35.400880"
+    },
+    {
+      "subject_code": "APJ",
+      "unit_number": 5,
+      "type": "study",
+      "timestamp": "2026-03-07T09:04:30.805228"
+    },
+    {
+      "subject_code": "APJ",
+      "unit_number": 5,
+      "type": "study",
+      "timestamp": "2026-03-07T09:12:57.671673"
+    },
+    {
+      "subject_code": "APJ",
+      "unit_number": 5,
+      "type": "study",
+      "timestamp": "2026-03-07T09:18:05.125636"
+    },
+    {
+      "subject_code": "APJ",
+      "unit_number": 5,
+      "type": "study",
+      "timestamp": "2026-03-08T05:57:51.160451"
+    },
+    {
+      "subject_code": "APJ",
+      "unit_number": 2,
+      "type": "study",
+      "timestamp": "2026-03-08T06:38:15.846508"
+    },
+    {
+      "subject_code": "APJ",
+      "unit_number": 2,
+      "type": "study",
+      "timestamp": "2026-03-08T06:39:14.599976"
+    },
+    {
+      "subject_code": "COA",
+      "unit_number": 3,
+      "type": "study",
+      "timestamp": "2026-03-08T06:39:42.670542"
+    },
+    {
+      "subject_code": "COA",
+      "unit_number": 4,
+      "type": "study",
+      "timestamp": "2026-03-08T06:54:42.717340"
+    },
+    {
+      "subject_code": "OB",
+      "unit_number": 5,
+      "type": "study",
+      "timestamp": "2026-03-08T06:54:57.755205"
+    },
+    {
+      "subject_code": "OB",
+      "unit_number": 5,
+      "type": "study",
+      "timestamp": "2026-03-08T07:37:28.092253"
+    },
+    {
+      "subject_code": "OB",
+      "unit_number": 5,
+      "type": "study",
+      "timestamp": "2026-03-08T07:38:20.462531"
+    },
+    {
+      "subject_code": "COA",
+      "unit_number": 3,
+      "type": "study",
+      "timestamp": "2026-03-08T07:44:47.823794"
+    },
+    {
+      "subject_code": "DM",
+      "unit_number": 4,
+      "type": "study",
+      "timestamp": "2026-03-08T07:45:19.370493"
+    },
+    {
+      "subject_code": "APJ",
+      "unit_number": 2,
+      "type": "study",
+      "timestamp": "2026-03-08T08:04:05.349392"
+    },
+    {
+      "subject_code": "COA",
+      "unit_number": 3,
+      "type": "study",
+      "timestamp": "2026-03-08T08:05:19.823815"
+    },
+    {
+      "subject_code": "COA",
+      "unit_number": 4,
+      "type": "study",
+      "timestamp": "2026-03-08T08:33:42.262178"
+    },
+    {
+      "subject_code": "COA",
+      "unit_number": 1,
+      "type": "study",
+      "timestamp": "2026-03-08T09:32:09.883496"
+    },
+    {
+      "subject_code": "OB",
+      "unit_number": 1,
+      "type": "study",
+      "timestamp": "2026-03-08T09:43:40.359228"
+    },
+    {
+      "subject_code": "COA",
+      "unit_number": 3,
+      "type": "study",
+      "timestamp": "2026-03-08T12:29:01.492881"
+    },
+    {
+      "subject_code": "OB",
+      "unit_number": 1,
+      "type": "study",
+      "timestamp": "2026-03-08T12:38:42.571308"
+    },
+    {
+      "subject_code": "OB",
+      "unit_number": 1,
+      "type": "study",
+      "timestamp": "2026-03-08T12:39:17.638250"
+    },
+    {
+      "subject_code": "COA",
+      "unit_number": 3,
+      "type": "study",
+      "timestamp": "2026-03-08T15:49:26.704288"
+    },
+    {
+      "subject_code": "COA",
+      "unit_number": 4,
+      "type": "study",
+      "timestamp": "2026-03-08T16:11:14.368361"
+    },
+    {
+      "subject_code": "COA",
+      "unit_number": 2,
+      "type": "study",
+      "timestamp": "2026-03-08T16:23:53.069334"
+    },
+    {
+      "subject_code": "COA",
+      "unit_number": 3,
+      "type": "study",
+      "timestamp": "2026-03-08T17:34:12.922929"
+    },
+    {
+      "subject_code": "COA",
+      "unit_number": 3,
+      "type": "study",
+      "timestamp": "2026-03-08T17:40:40.228476"
+    },
+    {
+      "subject_code": "COA",
+      "unit_number": 4,
+      "type": "study",
+      "timestamp": "2026-03-08T17:51:04.342804"
+    },
+    {
+      "subject_code": "COA",
+      "unit_number": 5,
+      "type": "study",
+      "timestamp": "2026-03-08T18:03:40.945334"
+    },
+    {
+      "subject_code": "COA",
+      "unit_number": 5,
+      "type": "study",
+      "timestamp": "2026-03-08T18:18:50.564330"
+    },
+    {
+      "subject_code": "COA",
+      "unit_number": 3,
+      "type": "study",
+      "timestamp": "2026-03-09T16:18:06.582136"
+    },
+    {
+      "subject_code": "DAA",
+      "unit_number": 1,
+      "type": "study",
+      "timestamp": "2026-03-09T16:25:38.994554"
+    },
+    {
+      "subject_code": "DAA",
+      "unit_number": 1,
+      "type": "study",
+      "timestamp": "2026-03-09T16:44:19.058679"
+    },
+    {
+      "subject_code": "DAA",
+      "unit_number": 2,
+      "type": "study",
+      "timestamp": "2026-03-09T16:58:22.282122"
+    }
+  ]
+}

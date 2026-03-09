@@ -1,0 +1,187 @@
+{
+  "subjects": [
+    {
+      "code": "DM",
+      "name": "Discrete Mathematics",
+      "short_name": "Discrete Math",
+      "description": "Mathematical foundations including set theory, relations, functions, proof strategies, combinatorics, graphs, logic, and algebra.",
+      "icon": "🔢",
+      "color": "#8b5cf6",
+      "units": [
+        {
+          "number": 1,
+          "title": "Unit 1: Set, Relations, Functions",
+          "topics": []
+        },
+        {
+          "number": 2,
+          "title": "Unit 2: Proof Strategies and Modular Arithmetic",
+          "topics": []
+        },
+        {
+          "number": 3,
+          "title": "Unit 3: Combinatorics and Graphs",
+          "topics": []
+        },
+        {
+          "number": 4,
+          "title": "Unit 4: Logic",
+          "topics": []
+        },
+        {
+          "number": 5,
+          "title": "Unit 5: Algebra",
+          "topics": []
+        }
+      ]
+    },
+    {
+      "code": "COA",
+      "name": "Computer Organization and Architecture",
+      "short_name": "COA",
+      "description": "Study of computer hardware organization, CPU architecture, memory systems, and I/O mechanisms.",
+      "icon": "🖥️",
+      "color": "#6366f1",
+      "units": [
+        {
+          "number": 1,
+          "title": "Unit 1: Introduction",
+          "topics": []
+        },
+        {
+          "number": 2,
+          "title": "Unit 2: Instruction Set Architecture (RISC-V)",
+          "topics": []
+        },
+        {
+          "number": 3,
+          "title": "Unit 3: Processor",
+          "topics": []
+        },
+        {
+          "number": 4,
+          "title": "Unit 4: Memory Hierarchy",
+          "topics": []
+        },
+        {
+          "number": 5,
+          "title": "Unit 5: Storage and I/O",
+          "topics": []
+        }
+      ]
+    },
+    {
+      "code": "DAA",
+      "name": "Design and Analysis of Algorithms",
+      "short_name": "Algorithms",
+      "description": "Algorithm design paradigms, complexity analysis, and problem-solving strategies.",
+      "icon": "⚡",
+      "color": "#10b981",
+      "units": [
+        {
+          "number": 1,
+          "title": "Unit 1: Introduction",
+          "topics": []
+        },
+        {
+          "number": 2,
+          "title": "Unit 2: Divide and Conquer, Greedy Approaches",
+          "topics": []
+        },
+        {
+          "number": 3,
+          "title": "Unit 3: Dynamic Programming",
+          "topics": []
+        },
+        {
+          "number": 4,
+          "title": "Unit 4: Backtracking",
+          "topics": []
+        },
+        {
+          "number": 5,
+          "title": "Unit 5: Branch and Bound",
+          "topics": []
+        }
+      ]
+    },
+    {
+      "code": "APJ",
+      "name": "Advanced Programming in Java",
+      "short_name": "Java",
+      "description": "Advanced Java concepts including OOP, inheritance, exception handling, multithreading, generics, and JavaFX.",
+      "icon": "☕",
+      "color": "#f59e0b",
+      "units": [
+        {
+          "number": 1,
+          "title": "Unit 1: Introduction to OOP and Java",
+          "topics": []
+        },
+        {
+          "number": 2,
+          "title": "Unit 2: Inheritance, Packages and Interfaces",
+          "topics": []
+        },
+        {
+          "number": 3,
+          "title": "Unit 3: Exception Handling and Multithreading",
+          "topics": []
+        },
+        {
+          "number": 4,
+          "title": "Unit 4: Generic Programming and String Handling",
+          "topics": []
+        },
+        {
+          "number": 5,
+          "title": "Unit 5: JavaFX Event Handling, Controls and Components",
+          "topics": []
+        }
+      ]
+    },
+    {
+      "code": "OB",
+      "name": "Organizational Behaviour",
+      "short_name": "OB",
+      "description": "Study of human behavior in organizational settings, leadership, motivation, and team dynamics.",
+      "icon": "👥",
+      "color": "#ec4899",
+      "units": [
+        {
+          "number": 1,
+          "title": "Unit 1: Focus and Purpose",
+          "topics": []
+        },
+        {
+          "number": 2,
+          "title": "Unit 2: Individual Behaviour",
+          "topics": []
+        },
+        {
+          "number": 3,
+          "title": "Unit 3: Group Behaviour",
+          "topics": []
+        },
+        {
+          "number": 4,
+          "title": "Unit 4: Leadership and Power",
+          "topics": []
+        },
+        {
+          "number": 5,
+          "title": "Unit 5: Dynamics of Organizational Behaviour",
+          "topics": []
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "department": "Computer Science Engineering",
+    "year": 2,
+    "semester": 4,
+    "university": "MIT",
+    "total_subjects": 5,
+    "units_per_subject": 5
+  }
+}

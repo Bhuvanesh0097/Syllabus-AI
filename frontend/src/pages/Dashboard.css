@@ -1,0 +1,108 @@
+/* ═══════════════════════════════════════════════════════════════
+   DASHBOARD — Subject Selection Grid
+   ═══════════════════════════════════════════════════════════════ */
+
+.dashboard {
+  padding: var(--space-8);
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.dashboard__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.dashboard__greeting h1 {
+  font-size: var(--text-3xl);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  margin-bottom: var(--space-2);
+}
+
+.dashboard__tagline {
+  color: var(--text-secondary);
+  font-size: var(--text-base);
+}
+
+.dashboard__meta .badge {
+  background: rgba(108, 99, 255, 0.1);
+  border: 1px solid rgba(108, 99, 255, 0.25);
+  color: var(--accent-primary);
+}
+
+.dashboard__notice {
+  padding: var(--space-3) var(--space-5);
+  background: rgba(246, 173, 85, 0.06);
+  border: 1px solid rgba(246, 173, 85, 0.15);
+  border-radius: var(--radius-lg);
+  font-size: var(--text-sm);
+  color: #F6AD55;
+}
+
+.dashboard__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-5);
+}
+
+.dashboard__loading {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-5);
+}
+
+.dashboard__skeleton {
+  height: 180px;
+  border-radius: var(--radius-xl);
+  background: var(--bg-glass);
+  border: 1px solid var(--border-subtle);
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard__skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(108, 99, 255, 0.04), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+.dashboard__footer {
+  text-align: center;
+  padding: var(--space-5);
+  background: var(--bg-glass);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+}
+
+.dashboard__footer p {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.dashboard__footer strong {
+  color: var(--accent-primary);
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    padding: var(--space-5);
+  }
+
+  .dashboard__header {
+    flex-direction: column;
+  }
+
+  .dashboard__grid {
+    grid-template-columns: 1fr;
+  }
+}

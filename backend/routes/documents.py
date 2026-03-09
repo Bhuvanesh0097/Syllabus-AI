@@ -1,0 +1,233 @@
+"""
+Document Routes — endpoints for document upload, listing, stats, and deletion.
+Supports per-section (A, B, C) document management for each subject.
+"""
+
+import os
+import shutil
+from pathlib import Path
+from fastapi import APIRouter, UploadFile, File, Form, HTTPException, Query
+from typing import Optional
+from models.schemas import DocumentUploadResponse, DocumentListResponse, GenericResponse
+from services import document_service, rag_service
+
+router = APIRouter(prefix="/api/documents", tags=["Documents"])
+
+VALID_SECTIONS = {"A", "B", "C"}
+
+
+def _validate_section(section: Optional[str]) -> Optional[str]:
+    """Validate and normalize section parameter."""
+    if section is None:
+        return None
+    section = section.upper().strip()
+    if section not in VALID_SECTIONS:
+        raise HTTPException(
+            status_code=422,
+            detail=f"Invalid section '{section}'. Must be one of: A, B, C"
+        )
+    return section
+
+
+@router.post("/upload", response_model=DocumentUploadResponse)
+async def upload_document(
+    file: UploadFile = File(...),
+    subject_code: str = Form(...),
+    unit_number: int = Form(...),
+    section: Optional[str] = Form(None)
+):
+    """
+    Upload a syllabus document (PDF, PPTX, DOCX).
+    The document will be processed, chunked, and indexed in the RAG system.
+    Section (A, B, or C) determines which class the notes belong to.
+    """
+    # Validate section
+    section = _validate_section(section)
+
+    # Validate file type
+    if not document_service.validate_file(file.filename):
+        raise HTTPException(
+            status_code=422,
+            detail=f"Unsupported file type. Supported: {', '.join(document_service.SUPPORTED_EXTENSIONS)}"
+        )
+
+    # Save file to disk (in section-specific directory)
+    doc_dir = document_service.get_document_dir(subject_code, section)
+    filepath = doc_dir / file.filename
+
+    try:
+        with open(filepath, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to save file: {e}")
+
+    # Extract text
+    try:
+        text = await document_service.extract_text(str(filepath))
+    except Exception as e:
+        raise HTTPException(status_code=422, detail=f"Failed to extract text: {e}")
+
+    # Chunk the text
+    chunks = document_service.chunk_text(text)
+
+    if not chunks:
+        return DocumentUploadResponse(
+            filename=file.filename,
+            subject_code=subject_code,
+            unit_number=unit_number,
+            section=section,
+            chunks_created=0,
+            message="No text content found in the document."
+        )
+
+    # Generate chunk IDs and metadata (include section in IDs)
+    section_prefix = f"_{section.lower()}" if section else ""
+    chunk_ids = [
+        f"{subject_code.lower()}{section_prefix}_u{unit_number}_{Path(file.filename).stem}_chunk_{i}"
+        for i in range(len(chunks))
+    ]
+    metadatas = [
+        {
+            "source": file.filename,
+            "subject_code": subject_code,
+            "unit_number": unit_number,
+            "section": section or "",
+            "chunk_index": i
+        }
+        for i in range(len(chunks))
+    ]
+
+    # Add to RAG vector store (section-specific collection)
+    try:
+        count = await rag_service.add_documents(
+            texts=chunks,
+            metadatas=metadatas,
+            ids=chunk_ids,
+            subject_code=subject_code,
+            unit_number=unit_number,
+            section=section
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to index document: {e}")
+
+    return DocumentUploadResponse(
+        filename=file.filename,
+        subject_code=subject_code,
+        unit_number=unit_number,
+        section=section,
+        chunks_created=count,
+        message=f"Successfully processed and indexed {count} chunks for Section {section or 'General'}."
+    )
+
+
+@router.get("/{subject_code}/stats")
+async def get_document_stats(
+    subject_code: str,
+    section: Optional[str] = Query(None, description="Section A, B, or C")
+):
+    """
+    Get RAG statistics for a subject — how many chunks per unit,
+    which units have documents, and overall readiness.
+    Optionally filter by section.
+    """
+    section = _validate_section(section)
+
+    try:
+        unit_stats = await rag_service.get_collection_stats(subject_code, section)
+    except Exception:
+        unit_stats = {}
+
+    docs = await document_service.list_documents(subject_code, section)
+    total_chunks = sum(u.get("chunks", 0) for u in unit_stats.values())
+    units_ready = sum(1 for u in unit_stats.values() if u.get("status") == "ready")
+
+    return {
+        "success": True,
+        "subject_code": subject_code,
+        "section": section,
+        "total_documents": len(docs),
+        "total_chunks": total_chunks,
+        "units_ready": units_ready,
+        "units": unit_stats,
+        "rag_status": "ready" if total_chunks > 0 else "no_documents"
+    }
+
+
+@router.delete("/{subject_code}/{filename}")
+async def delete_document(
+    subject_code: str,
+    filename: str,
+    section: Optional[str] = Query(None, description="Section A, B, or C")
+):
+    """
+    Delete a document from disk and remove its chunks from ChromaDB.
+    Specify section to delete from a specific section's folder.
+    """
+    section = _validate_section(section)
+
+    doc_dir = document_service.get_document_dir(subject_code, section)
+    filepath = doc_dir / filename
+
+    if not filepath.exists():
+        raise HTTPException(status_code=404, detail=f"File not found: {filename}")
+
+    # Remove chunks from all ChromaDB collections for this subject/section
+    removed_chunks = 0
+    base = subject_code.lower()
+    if section:
+        base = f"{base}_{section.lower()}"
+
+    try:
+        client = rag_service._get_chroma_client()
+        for unit_num in range(0, 6):  # 0 = general, 1-5 = units
+            collection_name = (
+                f"{base}_unit_{unit_num}"
+                if unit_num > 0
+                else f"{base}_general"
+            )
+            try:
+                collection = client.get_collection(collection_name)
+                existing = collection.get(where={"source": filename})
+                if existing and existing["ids"]:
+                    collection.delete(ids=existing["ids"])
+                    removed_chunks += len(existing["ids"])
+            except Exception:
+                continue
+    except Exception:
+        pass
+
+    # Delete file from disk
+    try:
+        filepath.unlink()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to delete file: {e}")
+
+    return {
+        "success": True,
+        "message": f"Deleted {filename} and removed {removed_chunks} chunks from RAG (Section {section or 'General'}).",
+        "removed_chunks": removed_chunks
+    }
+
+
+@router.get("/{subject_code}")
+async def list_documents(
+    subject_code: str,
+    section: Optional[str] = Query(None, description="Section A, B, or C")
+):
+    """List all uploaded documents for a subject, optionally filtered by section."""
+    section = _validate_section(section)
+    docs = await document_service.list_documents(subject_code, section)
+    return {"success": True, "documents": docs, "total": len(docs), "section": section}
+
+
+@router.get("/{subject_code}/sections")
+async def get_section_overview(subject_code: str):
+    """Get document count for each section (A, B, C) of a subject."""
+    overview = {}
+    for sec in ["A", "B", "C"]:
+        docs = await document_service.list_documents(subject_code, sec)
+        overview[sec] = {
+            "document_count": len(docs),
+            "filenames": [d["filename"] for d in docs]
+        }
+    return {"success": True, "subject_code": subject_code, "sections": overview}
