@@ -79,6 +79,9 @@ The student's message is the **ONLY source of truth**. You MUST:
 4. **NEVER add extra days** beyond what the student requested. Do NOT add "revision days" or "buffer days" unless the student asked for them.
 5. **NEVER invent your own schedule duration.** If the student says 3 days, the plan is 3 days. Period.
 6. **Do NOT hallucinate or assume** number of days. Only use what the student explicitly states.
+7. **If the student says "2 units" or "complete 2 units"** → cover EXACTLY 2 units. Do NOT cover 3, 4, or 5 units. ONLY the units specified in the HARD CONSTRAINTS.
+8. **If the student says "N units"** → the plan MUST contain EXACTLY N units. NEVER add extra units beyond what was requested.
+9. **READ THE STUDENT'S MESSAGE CAREFULLY.** Extract the exact numbers for hours, days, AND units. All three constraints are equally important.
 
 ### What to do if the student does NOT mention days:
 - If they say "2 hours" → create ONE single 2-hour session.
@@ -259,10 +262,13 @@ If **hours** is missing:
 If **days** is missing AND only hours are given:
 > Create a **SINGLE SESSION** plan for the given hours only. Do NOT create multiple days.
 
-If **specific units** are mentioned:
-> Cover ONLY those units. Do NOT add additional units.
+If **specific units** are mentioned (e.g. "units 1 and 3"):
+> Cover ONLY those specific units. Do NOT add additional units.
 
-If **no specific units** are mentioned:
+If **a unit count** is mentioned without specifying which ones (e.g. "complete 2 units", "cover 3 units"):
+> Cover EXACTLY that many units, starting from Unit 1. For example, "2 units" → Unit 1 and Unit 2. NEVER cover more units than the count specified.
+
+If **no specific units** are mentioned AND no count is given:
 > Cover all available units from the syllabus topics, prioritizing by importance.
 
 ---
@@ -305,8 +311,12 @@ import re
 def _parse_user_request(text: str) -> Dict[str, Any]:
     """
     Extract days, hours, and units from a user's natural language request.
-    Returns a dict with optional keys: 'days', 'hours', 'units'.
+    Returns a dict with optional keys: 'days', 'hours', 'units', 'unit_count'.
     Only returns values that the user EXPLICITLY mentioned.
+    
+    'units' = specific unit numbers the user wants (e.g. "units 1 and 3")
+    'unit_count' = how many units the user wants when they don't specify which ones
+                   (e.g. "I need to complete 2 units")
     """
     result = {}
     t = text.lower()
@@ -343,22 +353,39 @@ def _parse_user_request(text: str) -> Dict[str, Any]:
             break
 
     # ── Extract units ──
-    # Patterns: "units 1-3", "unit 1,2,3", "units 1 to 5", "unit 4", "all units"
+    # CASE 1: "all units" or "all 5 units"
     if 'all units' in t or 'all 5 units' in t:
         result['units'] = [1, 2, 3, 4, 5]
     else:
-        # "units 1-3" or "unit 1-5"
-        m = re.search(r'units?\s+(\d+)\s*[-–to]+\s*(\d+)', t)
+        # CASE 2: Specific unit ranges — "units 1-3" or "unit 1-5"
+        m = re.search(r'units?\s+(\d+)\s*[-\u2013to]+\s*(\d+)', t)
         if m:
             start, end = int(m.group(1)), int(m.group(2))
             result['units'] = list(range(start, end + 1))
         else:
-            # "units 1, 2, 3" or "unit 1 2 3"
-            m = re.search(r'units?\s+([\d,\s]+)', t)
+            # CASE 3: Specific unit numbers — "units 1, 2, 3" or "unit 1 and 3"
+            m = re.search(r'units?\s+([\d,\s&and]+)', t)
             if m:
                 nums = re.findall(r'\d+', m.group(1))
                 if nums:
                     result['units'] = [int(n) for n in nums if 1 <= int(n) <= 5]
+
+        # CASE 4: Number BEFORE "units" — "2 units", "complete 3 units",
+        #         "cover 2 units", "finish 4 units", "need complete 2 units"
+        #         This means the user wants N units but didn't specify WHICH ones.
+        if 'units' not in result:
+            m = re.search(
+                r'(?:complete|cover|finish|study|do|prepare|need|need\s+complete|need\s+to\s+complete)?'
+                r'\s*(\d+)\s+units?\b',
+                t
+            )
+            if m:
+                count = int(m.group(1))
+                if 1 <= count <= 5:
+                    result['unit_count'] = count
+                    # Default to the first N units (user didn't specify which)
+                    result['units'] = list(range(1, count + 1))
+                    logger.info(f"Parsed unit_count={count}, defaulting to units 1-{count}")
 
     return result
 
@@ -393,6 +420,7 @@ async def generate_study_plan(
         # Override units/hours/days with what the user actually requested
         if 'units' in parsed_intent:
             units = parsed_intent['units']
+            logger.info(f"User requested specific units: {units}")
         if 'hours' in parsed_intent:
             hours_per_day = parsed_intent['hours']
         if 'days' in parsed_intent:
@@ -502,30 +530,36 @@ Rules:
 - Include a 5-10 minute Quick Review block at the end
 - List specific topics and activities for each unit"""
 
+        # Build a strict unit constraint message
+        unit_count_note = ""
+        if 'unit_count' in parsed_intent:
+            unit_count_note = f"\n- **IMPORTANT:** The student asked to cover exactly {parsed_intent['unit_count']} units. Cover ONLY {units_str}. Do NOT cover any other units."
+
         user_prompt = f"""# HARD CONSTRAINTS (MUST FOLLOW EXACTLY)
 
 - **Subject:** {subject_name}
-- **Units to cover:** {units_str} (ONLY these units, no others)
+- **Units to cover:** {units_str} (ONLY these {len(units)} units, NO other units)
 - **Total study time:** {hours_per_day} hours ({int(hours_per_day * 60)} minutes)
 - **Days:** {day_instruction}
-- **Format:** {session_format}
+- **Format:** {session_format}{unit_count_note}
 
 # STUDENT'S ORIGINAL MESSAGE
 
 \"\"\"{user_request}\"\"\"
 
-# SYLLABUS TOPICS (use for real topic names only)
+# SYLLABUS TOPICS (use for real topic names only — ONLY from the units listed above)
 
 {retrieved_topics}
 
 # RULES
 
 1. Follow the HARD CONSTRAINTS above exactly — they were extracted from the student's message.
-2. Produce ONLY the units listed above. Do NOT add units that aren't listed.
+2. Produce ONLY the {len(units)} units listed above: {units_str}. Do NOT add any other units that aren't listed. If the student said "{len(units)} units", cover EXACTLY {len(units)} units.
 3. Produce EXACTLY the number of days specified above. NEVER add extra days.
 4. For single session: create a TIMELINE with specific time ranges for each unit. Time MUST add up to exactly {int(hours_per_day * 60)} minutes.
 5. Use topic names from the SYLLABUS TOPICS section. Do NOT invent topics.
-6. Output clean Markdown."""
+6. Output clean Markdown.
+7. NEVER cover more units than what the student asked for. This is a HARD constraint."""
     else:
         user_prompt = f"""# INPUT VARIABLES
 
@@ -587,6 +621,94 @@ Output clean Markdown following the format rules from your instructions."""
             days_available=days_available,
         )
 
+
+# ══════════════════════════════════════════════════════════════
+# Refine / Modify Existing Plan
+# ══════════════════════════════════════════════════════════════
+
+REFINE_SYSTEM_PROMPT = """You are an expert academic study planner. A student has an existing study plan and wants to modify it.
+
+Your job is to:
+1. Read the current study plan carefully
+2. Understand the student's modification request
+3. Generate an UPDATED version of the plan that incorporates the requested changes
+4. Maintain the same professional formatting and structure
+
+RULES:
+- Keep the parts of the plan that the student is satisfied with
+- Only change what the student explicitly asks to modify
+- Maintain the same markdown formatting style
+- If the student asks to add/remove days, adjust accordingly
+- If the student asks to change time allocation, redistribute properly
+- If the student asks to focus on specific topics, restructure to prioritize those
+- Output ONLY the updated plan in clean markdown — no commentary, no explanations about what you changed
+- The output should be a complete, standalone study plan (not a diff or list of changes)
+"""
+
+
+async def refine_study_plan(
+    subject_code: str,
+    current_plan: str,
+    modification_request: str,
+    section: Optional[str] = None,
+) -> Dict[str, Any]:
+    """
+    Refine an existing study plan based on user feedback.
+    Takes the current plan + modification request, returns updated plan.
+    """
+    subject_name = SUBJECT_INFO.get(subject_code, {}).get("name", subject_code)
+
+    logger.info(
+        f"Refining study plan: subject={subject_code}, "
+        f"modification='{modification_request[:80]}...'"
+    )
+
+    user_prompt = f"""# CURRENT STUDY PLAN
+
+{current_plan}
+
+# STUDENT'S MODIFICATION REQUEST
+
+\"\"\"{modification_request}\"\"\"
+
+# TASK
+
+Generate the COMPLETE updated study plan incorporating the student's changes.
+Output only the updated plan in clean Markdown. No commentary."""
+
+    try:
+        logger.info("Calling LLM for study plan refinement...")
+        plan_markdown = await _call_llm(user_prompt, REFINE_SYSTEM_PROMPT)
+        logger.info(f"LLM returned {len(plan_markdown)} chars for refined plan")
+
+        # Clean up any code fences
+        cleaned = plan_markdown.strip()
+        if cleaned.startswith("```markdown"):
+            cleaned = cleaned[len("```markdown"):].strip()
+        elif cleaned.startswith("```md"):
+            cleaned = cleaned[len("```md"):].strip()
+        elif cleaned.startswith("```"):
+            cleaned = cleaned[3:].strip()
+        if cleaned.endswith("```"):
+            cleaned = cleaned[:-3].strip()
+
+        # Extract metadata from the refined plan
+        day_headings = re.findall(r'###\s+Day\s+\d+', cleaned)
+        actual_days = len(day_headings) if day_headings else None
+
+        return {
+            "plan_markdown": cleaned,
+            "subject_code": subject_code,
+            "subject_name": subject_name,
+            "units": [],  # Units may have changed during refinement
+            "hours_per_day": 0,
+            "days_available": actual_days,
+            "topics_retrieved": True,
+        }
+
+    except Exception as e:
+        logger.error(f"Study plan refinement failed: {e}", exc_info=True)
+        raise Exception(f"Failed to refine study plan: {e}")
 
 def _generate_fallback_plan(
     subject_code: str,

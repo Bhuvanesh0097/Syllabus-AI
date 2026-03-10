@@ -118,20 +118,7 @@ function ChatMessage({ message, isLast }) {
                     </div>
                 )}
 
-                {!isUser && message.quality && (
-                    <div className="chat-msg__quality">
-                        <span
-                            className={`chat-msg__quality-badge chat-msg__quality-badge--${message.quality.confidence}`}
-                            title={message.quality.warnings?.length > 0
-                                ? `Warnings: ${message.quality.warnings.join('; ')}`
-                                : 'All quality checks passed'}
-                        >
-                            {message.quality.confidence === 'high' ? '✓' : message.quality.confidence === 'medium' ? '~' : '!'}
-                            {' '}{message.quality.grounded ? 'Grounded' : '⚠ Ungrounded'}
-                            {' · '}{message.quality.checks_passed}/{message.quality.checks_total}
-                        </span>
-                    </div>
-                )}
+
             </div>
         </div>
     );

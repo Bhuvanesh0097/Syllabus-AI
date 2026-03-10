@@ -11,9 +11,9 @@
 .unit-selector__item { display: flex; flex-direction: column; align-items: center; gap: var(--space-2); padding: var(--space-6) var(--space-4); background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-xl); cursor: pointer; transition: all var(--duration-normal) var(--ease-smooth); animation: fadeInUp var(--duration-slow) var(--ease-smooth) both; }
 .unit-selector__item:hover { background: var(--bg-card-hover); border-color: var(--border-accent); transform: translateY(-3px); box-shadow: var(--shadow-glow); }
 .unit-selector__item--active { border-color: var(--accent-primary); background: rgba(108, 99, 255, 0.08); }
-.unit-selector__num { font-size: var(--text-3xl); font-weight: 900; color: var(--text-tertiary); transition: all var(--duration-fast) var(--ease-smooth); }
-.unit-selector__item:hover .unit-selector__num { color: var(--accent-primary); }
-.unit-selector__label { font-size: var(--text-sm); font-weight: 500; color: var(--text-secondary); }
+.unit-selector__num, .unit-selector__number { font-size: var(--text-3xl); font-weight: 900; color: var(--text-tertiary); transition: all var(--duration-fast) var(--ease-smooth); }
+.unit-selector__item:hover .unit-selector__num, .unit-selector__item:hover .unit-selector__number { color: var(--accent-primary); }
+.unit-selector__label, .unit-selector__unit-title { font-size: var(--text-sm); font-weight: 500; color: var(--text-secondary); }
 
 @media (max-width: 768px) { .unit-selector__grid { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 480px) { .unit-selector__grid { grid-template-columns: repeat(2, 1fr); } .unit-selector { padding: var(--space-5); } }

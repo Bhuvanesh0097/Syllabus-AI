@@ -167,10 +167,7 @@ function Settings({ settings: appSettings, onUpdateSettings }) {
                                 <span className="settings__about-key">Academic Year</span>
                                 <span className="settings__about-val">{APP_INFO.year} · {APP_INFO.semester}</span>
                             </div>
-                            <div className="settings__about-item">
-                                <span className="settings__about-key">Platform</span>
-                                <span className="settings__about-val">FastAPI + React + Groq LLM</span>
-                            </div>
+
                         </div>
 
                         <div className="settings__about-desc">
@@ -181,17 +178,7 @@ function Settings({ settings: appSettings, onUpdateSettings }) {
                             </p>
                         </div>
 
-                        <div className="settings__about-features">
-                            <h4>Key Features</h4>
-                            <ul>
-                                <li>📚 RAG-based syllabus question answering</li>
-                                <li>📝 2-mark &amp; 10-mark exam preparation</li>
-                                <li>📋 AI study plan generator</li>
-                                <li>🧠 Long-term memory &amp; progress tracking</li>
-                                <li>🔄 Smart subject switching</li>
-                                <li>🎨 Customizable AI tone</li>
-                            </ul>
-                        </div>
+
 
                         <div className="settings__about-footer">
                             <span>Built with ❤️ for students</span>

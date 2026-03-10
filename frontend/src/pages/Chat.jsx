@@ -8,19 +8,19 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import ChatMessage from '../components/ChatMessage';
 import ChatInput from '../components/ChatInput';
 import UnitSelector from '../components/UnitSelector';
-import useChat from '../hooks/useChat';
 import { SUBJECTS } from '../utils/constants';
 import './Chat.css';
 
 const UNITS_LIST = [1, 2, 3, 4, 5];
 
-function Chat({ subjectCode: initialSubjectCode, initialUnit, studentInfo, onBack, onSwitchContext, tone }) {
+function Chat({ subjectCode: initialSubjectCode, initialUnit, studentInfo, onBack, onSwitchContext, tone, chatState }) {
     const [selectedUnit, setSelectedUnit] = useState(initialUnit || null);
     const [activeSubject, setActiveSubject] = useState(initialSubjectCode);
     const [showNewChatPanel, setShowNewChatPanel] = useState(false);
     const [newChatSubject, setNewChatSubject] = useState('');
     const [newChatUnit, setNewChatUnit] = useState('');
 
+    // Use chat state lifted from App.jsx so it persists across page switches
     const {
         messages,
         isLoading,
@@ -31,7 +31,7 @@ function Chat({ subjectCode: initialSubjectCode, initialUnit, studentInfo, onBac
         startSession,
         sendMessage,
         clearChat,
-    } = useChat();
+    } = chatState;
     const messagesEndRef = useRef(null);
     const subject = SUBJECTS[activeSubject];
 

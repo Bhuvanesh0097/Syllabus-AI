@@ -116,26 +116,7 @@ function Sidebar({ collapsed, onToggle, activePage, onNavigate, studentInfo }) {
                     ))}
                 </nav>
 
-                {/* ── Subject Quick Access ── */}
-                {!collapsed && (
-                    <div className="sidebar__subjects">
-                        <div className="sidebar__section-title">Subjects</div>
-                        {Object.values(SUBJECTS).map((subject) => (
-                            <button
-                                key={subject.code}
-                                className="sidebar__subject-item"
-                                onClick={() => onNavigate('chat', { subjectCode: subject.code })}
-                            >
-                                <span className="sidebar__subject-icon">{subject.icon}</span>
-                                <span className="sidebar__subject-name">{subject.shortName}</span>
-                                <span
-                                    className="sidebar__subject-dot"
-                                    style={{ background: subject.color }}
-                                />
-                            </button>
-                        ))}
-                    </div>
-                )}
+
 
                 {/* ── Toggle Button ── */}
                 <button

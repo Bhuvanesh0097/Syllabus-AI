@@ -148,6 +148,13 @@ class ApiClient {
     });
   }
 
+  async refineStudyPlan(options) {
+    return this.request('/api/study-plan/refine', {
+      method: 'POST',
+      body: JSON.stringify(options),
+    });
+  }
+
   // ── Memory ──────────────────────────────────────────────
   async getProgress() {
     return this.request('/api/memory/progress');

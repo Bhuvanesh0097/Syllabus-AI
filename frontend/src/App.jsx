@@ -4,6 +4,7 @@
  */
 
 import { useState, useCallback, useEffect } from 'react';
+import useChat from './hooks/useChat';
 import Layout from './components/Layout';
 import Landing from './pages/Landing';
 import Dashboard from './pages/Dashboard';
@@ -30,6 +31,18 @@ function App() {
   const [selectedUnit, setSelectedUnit] = useState(null);
   const [pageParams, setPageParams] = useState({});
   const [appSettings, setAppSettings] = useState(loadSettings);
+
+  // Lift chat state to App level so it persists across page switches
+  const chatState = useChat();
+
+  // Lift study plan state to App level so it persists across page switches
+  const [studyPlanState, setStudyPlanState] = useState({
+    selectedSubject: null,
+    section: null,
+    message: '',
+    plan: null,
+    refineMessages: [],
+  });
 
   // Apply theme to DOM
   useEffect(() => {
@@ -100,6 +113,7 @@ function App() {
             onBack={() => navigate('dashboard')}
             onSwitchContext={handleSwitchContext}
             tone={appSettings.tone}
+            chatState={chatState}
           />
         );
       case 'study-mode':
@@ -115,6 +129,8 @@ function App() {
           <StudyPlan
             studentInfo={studentInfo}
             onBack={() => navigate('dashboard')}
+            persistedState={studyPlanState}
+            onStateChange={setStudyPlanState}
           />
         );
       case 'documents':

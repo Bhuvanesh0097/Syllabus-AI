@@ -45,3 +45,31 @@ async def generate_plan(request: StudyPlanRequest):
         raise HTTPException(status_code=500, detail=f"Failed to generate study plan: {e}")
 
     return {"success": True, "plan": result}
+
+
+class StudyPlanRefineRequest(BaseModel):
+    subject_code: str = Field(..., min_length=1)
+    current_plan: str = Field(..., min_length=1)
+    modification_request: str = Field(..., min_length=1)
+    section: Optional[str] = None
+
+
+@router.post("/refine")
+async def refine_plan(request: StudyPlanRefineRequest):
+    """
+    Refine an existing study plan based on user feedback.
+    Takes the current plan and a modification request,
+    returns an updated plan.
+    """
+    try:
+        result = await study_plan_service.refine_study_plan(
+            subject_code=request.subject_code,
+            current_plan=request.current_plan,
+            modification_request=request.modification_request,
+            section=request.section,
+        )
+    except Exception as e:
+        logger.error(f"Study plan refinement failed: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to refine study plan: {e}")
+
+    return {"success": True, "plan": result}

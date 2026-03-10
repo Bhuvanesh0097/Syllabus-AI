@@ -75,12 +75,18 @@
         "2": {
           "topics_studied": [
             "Started study session \u2014 Unit 2: Collection Framework & Generics",
-            "Started study session \u2014 Unit 2: Inheritance, Packages and Interfaces"
+            "Started study session \u2014 Unit 2: Inheritance, Packages and Interfaces",
+            "Summarize: On 6 and 9 August 1945, the United States detonated two atomic bombs over the Japanese ci",
+            "explain constructor detailly",
+            "explain this concept to a 5 years old boy",
+            "make the 10 mark short and crisp and also in scoring method",
+            "use emojis in 10 mark for my self cheering purpose",
+            "Summarize: what is java"
           ],
           "questions_asked": [],
-          "last_visited": "2026-03-08T08:04:05.354525",
+          "last_visited": "2026-03-10T16:55:22.922175",
           "confidence": 0.0,
-          "interaction_count": 4
+          "interaction_count": 13
         },
         "5": {
           "topics_studied": [
@@ -94,10 +100,41 @@
           "last_visited": "2026-03-08T05:57:51.173074",
           "confidence": 0.0,
           "interaction_count": 7
+        },
+        "4": {
+          "topics_studied": [
+            "Started study session \u2014 Unit 4: Generic Programming and String Handling",
+            "what we discussed before"
+          ],
+          "questions_asked": [],
+          "last_visited": "2026-03-10T10:50:43.127240",
+          "confidence": 0.0,
+          "interaction_count": 2
+        },
+        "3": {
+          "topics_studied": [
+            "Started study session \u2014 Unit 3: Exception Handling and Multithreading"
+          ],
+          "questions_asked": [],
+          "last_visited": "2026-03-10T13:57:56.506812",
+          "confidence": 0.0,
+          "interaction_count": 1
+        },
+        "1": {
+          "topics_studied": [
+            "Started study session \u2014 Unit 1: Introduction to OOP and Java",
+            "give me a example code for constructor",
+            "is this example from the pdf posted in backend?",
+            "i want same example from pdf"
+          ],
+          "questions_asked": [],
+          "last_visited": "2026-03-10T14:10:24.269532",
+          "confidence": 0.0,
+          "interaction_count": 4
         }
       },
-      "total_interactions": 11,
-      "last_active": "2026-03-08T08:04:05.354525"
+      "total_interactions": 27,
+      "last_active": "2026-03-10T16:55:22.922175"
     },
     "COA": {
       "units": {
@@ -106,18 +143,20 @@
             "Started study session \u2014 Unit 3: Processor"
           ],
           "questions_asked": [],
-          "last_visited": "2026-03-09T16:18:06.601931",
+          "last_visited": "2026-03-10T09:09:42.818248",
           "confidence": 0.0,
-          "interaction_count": 8
+          "interaction_count": 10
         },
         "4": {
           "topics_studied": [
-            "Started study session \u2014 Unit 4: Memory Hierarchy"
+            "Started study session \u2014 Unit 4: Memory Hierarchy",
+            "what is  CISC ?",
+            "Make it brief:"
           ],
           "questions_asked": [],
-          "last_visited": "2026-03-08T17:51:04.417032",
+          "last_visited": "2026-03-10T09:48:22.959502",
           "confidence": 0.0,
-          "interaction_count": 4
+          "interaction_count": 7
         },
         "1": {
           "topics_studied": [
@@ -130,25 +169,33 @@
         },
         "2": {
           "topics_studied": [
-            "Started study session \u2014 Unit 2: Instruction Set Architecture (RISC-V)"
+            "Started study session \u2014 Unit 2: Instruction Set Architecture (RISC-V)",
+            "what is RISC",
+            "Make it brief:",
+            "Summarize: On 6 and 9 August 1945, the United States detonated two atomic bombs over the Japanese ci"
           ],
           "questions_asked": [],
-          "last_visited": "2026-03-08T16:23:53.089225",
+          "last_visited": "2026-03-10T15:43:44.818883",
           "confidence": 0.0,
-          "interaction_count": 1
+          "interaction_count": 8
         },
         "5": {
           "topics_studied": [
-            "Started study session \u2014 Unit 5: Storage and I/O"
+            "Started study session \u2014 Unit 5: Storage and I/O",
+            "hello",
+            "say just hello",
+            "tease me",
+            "no just tease me",
+            "hello cow"
           ],
           "questions_asked": [],
-          "last_visited": "2026-03-08T18:18:50.605346",
+          "last_visited": "2026-03-10T10:38:01.367005",
           "confidence": 0.0,
-          "interaction_count": 2
+          "interaction_count": 9
         }
       },
-      "total_interactions": 16,
-      "last_active": "2026-03-09T16:18:06.601931"
+      "total_interactions": 35,
+      "last_active": "2026-03-10T15:43:44.818883"
     },
     "DM": {
       "units": {
@@ -166,8 +213,8 @@
       "last_active": "2026-03-08T07:45:19.375362"
     }
   },
-  "total_interactions": 57,
-  "last_active": "2026-03-09T16:58:22.300700",
+  "total_interactions": 92,
+  "last_active": "2026-03-10T16:55:22.922175",
   "first_seen": "2026-03-07T06:20:21.695595",
   "sessions": [
     {
@@ -403,6 +450,90 @@
       "unit_number": 2,
       "type": "study",
       "timestamp": "2026-03-09T16:58:22.282122"
+    },
+    {
+      "subject_code": "COA",
+      "unit_number": 3,
+      "type": "study",
+      "timestamp": "2026-03-09T17:24:27.361283"
+    },
+    {
+      "subject_code": "COA",
+      "unit_number": 2,
+      "type": "study",
+      "timestamp": "2026-03-10T08:52:33.009391"
+    },
+    {
+      "subject_code": "COA",
+      "unit_number": 2,
+      "type": "study",
+      "timestamp": "2026-03-10T08:53:53.869339"
+    },
+    {
+      "subject_code": "COA",
+      "unit_number": 2,
+      "type": "study",
+      "timestamp": "2026-03-10T08:55:50.198046"
+    },
+    {
+      "subject_code": "COA",
+      "unit_number": 3,
+      "type": "study",
+      "timestamp": "2026-03-10T09:09:42.778419"
+    },
+    {
+      "subject_code": "COA",
+      "unit_number": 4,
+      "type": "study",
+      "timestamp": "2026-03-10T09:46:17.930340"
+    },
+    {
+      "subject_code": "COA",
+      "unit_number": 5,
+      "type": "study",
+      "timestamp": "2026-03-10T10:08:21.366817"
+    },
+    {
+      "subject_code": "COA",
+      "unit_number": 5,
+      "type": "study",
+      "timestamp": "2026-03-10T10:32:26.007295"
+    },
+    {
+      "subject_code": "APJ",
+      "unit_number": 4,
+      "type": "study",
+      "timestamp": "2026-03-10T10:50:27.327151"
+    },
+    {
+      "subject_code": "APJ",
+      "unit_number": 3,
+      "type": "study",
+      "timestamp": "2026-03-10T13:57:56.485739"
+    },
+    {
+      "subject_code": "APJ",
+      "unit_number": 1,
+      "type": "study",
+      "timestamp": "2026-03-10T13:58:54.754140"
+    },
+    {
+      "subject_code": "APJ",
+      "unit_number": 2,
+      "type": "study",
+      "timestamp": "2026-03-10T15:03:48.922161"
+    },
+    {
+      "subject_code": "APJ",
+      "unit_number": 2,
+      "type": "study",
+      "timestamp": "2026-03-10T15:44:37.276625"
+    },
+    {
+      "subject_code": "APJ",
+      "unit_number": 2,
+      "type": "study",
+      "timestamp": "2026-03-10T16:54:56.009082"
     }
   ]
 }

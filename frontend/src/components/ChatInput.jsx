@@ -4,7 +4,6 @@
  */
 
 import { useState, useCallback } from 'react';
-import { ANSWER_STYLES } from '../utils/constants';
 import './ChatInput.css';
 
 // Quick-action chips that students can click to set a style context
@@ -19,13 +18,11 @@ const QUICK_ACTIONS = [
 
 function ChatInput({ onSend, isLoading, subjectCode }) {
     const [message, setMessage] = useState('');
-    const [answerStyle, setAnswerStyle] = useState('explanation');
-    const [showStyles, setShowStyles] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!message.trim() || isLoading) return;
-        onSend(message, { answerStyle });
+        onSend(message);
         setMessage('');
     };
 
@@ -41,7 +38,7 @@ function ChatInput({ onSend, isLoading, subjectCode }) {
         // If no text, just set the prefix so student can type the topic
         if (message.trim()) {
             const combined = `${action.prefix}${message.trim()}`;
-            onSend(combined, { answerStyle });
+            onSend(combined);
             setMessage('');
         } else {
             setMessage(action.prefix);
@@ -55,9 +52,9 @@ function ChatInput({ onSend, isLoading, subjectCode }) {
                 }, 0);
             }
         }
-    }, [message, answerStyle, onSend]);
+    }, [message, onSend]);
 
-    const currentStyle = ANSWER_STYLES.find(s => s.value === answerStyle);
+
 
     return (
         <div className="chat-input-container">
@@ -79,36 +76,7 @@ function ChatInput({ onSend, isLoading, subjectCode }) {
             </div>
 
             <form className="chat-input" onSubmit={handleSubmit}>
-                {/* ── Style Selector ── */}
-                <div className="chat-input__style-wrapper">
-                    <button
-                        type="button"
-                        className="chat-input__style-btn"
-                        onClick={() => setShowStyles(!showStyles)}
-                        title="Change answer style"
-                    >
-                        {currentStyle?.label || 'Style'}
-                    </button>
 
-                    {showStyles && (
-                        <div className="chat-input__style-menu">
-                            {ANSWER_STYLES.map((style) => (
-                                <button
-                                    key={style.value}
-                                    type="button"
-                                    className={`chat-input__style-option ${answerStyle === style.value ? 'chat-input__style-option--active' : ''}`}
-                                    onClick={() => {
-                                        setAnswerStyle(style.value);
-                                        setShowStyles(false);
-                                    }}
-                                >
-                                    <span className="chat-input__style-label">{style.label}</span>
-                                    <span className="chat-input__style-desc">{style.description}</span>
-                                </button>
-                            ))}
-                        </div>
-                    )}
-                </div>
 
                 {/* ── Text Input ── */}
                 <textarea
