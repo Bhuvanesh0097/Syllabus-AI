@@ -451,13 +451,72 @@
 }
 
 
-/* ── Responsive ── */
+/* ── Mobile Close Button ── */
+.sidebar__mobile-close {
+  display: none;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  background: var(--bg-glass);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-size: var(--text-lg);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-smooth);
+  flex-shrink: 0;
+}
+
+.sidebar__mobile-close:hover {
+  color: var(--text-primary);
+  background: var(--bg-glass-hover);
+  border-color: var(--border-medium);
+}
+
+
+/* ── Responsive — Mobile Drawer ── */
 @media (max-width: 768px) {
   .sidebar {
     transform: translateX(-100%);
+    width: 280px;
+    z-index: 200;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .sidebar--collapsed {
     transform: translateX(-100%);
+    width: 280px;
+  }
+
+  .sidebar--mobile-open {
+    transform: translateX(0) !important;
+    width: 280px !important;
+  }
+
+  .sidebar__mobile-close {
+    display: flex;
+  }
+
+  .sidebar__brand {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .sidebar__toggle {
+    display: none;
+  }
+
+  .sidebar__nav-label {
+    display: inline !important;
+  }
+
+  .sidebar__footer {
+    display: flex !important;
+  }
+
+  .sidebar__logo-text {
+    display: flex !important;
   }
 }

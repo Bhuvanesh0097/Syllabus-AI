@@ -219,12 +219,53 @@
 
 
 @media (max-width: 768px) {
+  .chat-input-container {
+    gap: var(--space-2);
+  }
+
   .chat-input__quick-actions {
     gap: var(--space-1);
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+
+  .chat-input__quick-actions::-webkit-scrollbar {
+    display: none;
   }
 
   .chat-input__quick-chip {
     font-size: 10px;
     padding: var(--space-1) var(--space-2);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .chat-input__textarea {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--text-sm);
+    min-height: 40px;
+  }
+
+  .chat-input__send {
+    width: 40px;
+    height: 40px;
+  }
+
+  .chat-input__disclaimer {
+    display: none;
+  }
+
+  .chat-input__style-btn {
+    padding: var(--space-1) var(--space-2);
+    font-size: 10px;
+  }
+
+  .chat-input__style-menu {
+    width: 190px;
+    left: auto;
+    right: 0;
   }
 }

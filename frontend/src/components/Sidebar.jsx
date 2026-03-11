@@ -8,7 +8,7 @@ import { APP_INFO, SUBJECTS } from '../utils/constants';
 import api from '../api/client';
 import './Sidebar.css';
 
-function Sidebar({ collapsed, onToggle, activePage, onNavigate, studentInfo }) {
+function Sidebar({ collapsed, onToggle, activePage, onNavigate, studentInfo, mobileOpen, onMobileClose }) {
     const [showPinModal, setShowPinModal] = useState(false);
     const [pin, setPin] = useState('');
     const [pinError, setPinError] = useState('');
@@ -71,10 +71,10 @@ function Sidebar({ collapsed, onToggle, activePage, onNavigate, studentInfo }) {
 
     return (
         <>
-            <aside className={`sidebar ${collapsed ? 'sidebar--collapsed' : ''}`}>
+            <aside className={`sidebar ${collapsed ? 'sidebar--collapsed' : ''} ${mobileOpen ? 'sidebar--mobile-open' : ''}`}>
                 {/* ── Brand ── */}
-                <div className="sidebar__brand" onClick={() => onNavigate('landing')}>
-                    <div className="sidebar__logo">
+                <div className="sidebar__brand">
+                    <div className="sidebar__logo" onClick={() => onNavigate('landing')}>
                         <span className="sidebar__logo-icon">✦</span>
                         {!collapsed && (
                             <div className="sidebar__logo-text">
@@ -83,6 +83,15 @@ function Sidebar({ collapsed, onToggle, activePage, onNavigate, studentInfo }) {
                             </div>
                         )}
                     </div>
+                    {mobileOpen && (
+                        <button
+                            className="sidebar__mobile-close"
+                            onClick={onMobileClose}
+                            aria-label="Close menu"
+                        >
+                            ✕
+                        </button>
+                    )}
                 </div>
 
                 {/* ── Navigation ── */}
