@@ -1,6 +1,6 @@
 {
   "student_id": "default_student",
-  "name": "baby",
+  "name": "Hax",
   "department": "CSE",
   "year": "2nd Year",
   "semester": "4th Semester",
@@ -26,13 +26,13 @@
             "Started study session \u2014 Unit 2: Divide and Conquer, Greedy Approaches"
           ],
           "questions_asked": [],
-          "last_visited": "2026-03-09T16:58:22.300700",
+          "last_visited": "2026-03-11T07:36:15.468196",
           "confidence": 0.0,
-          "interaction_count": 1
+          "interaction_count": 2
         }
       },
-      "total_interactions": 14,
-      "last_active": "2026-03-09T16:58:22.300700"
+      "total_interactions": 15,
+      "last_active": "2026-03-11T07:36:15.468196"
     },
     "OB": {
       "units": {
@@ -113,12 +113,13 @@
         },
         "3": {
           "topics_studied": [
-            "Started study session \u2014 Unit 3: Exception Handling and Multithreading"
+            "Started study session \u2014 Unit 3: Exception Handling and Multithreading",
+            "i want an overview of this lesson in crystal clear way"
           ],
           "questions_asked": [],
-          "last_visited": "2026-03-10T13:57:56.506812",
+          "last_visited": "2026-03-11T07:34:54.188776",
           "confidence": 0.0,
-          "interaction_count": 1
+          "interaction_count": 4
         },
         "1": {
           "topics_studied": [
@@ -133,8 +134,8 @@
           "interaction_count": 4
         }
       },
-      "total_interactions": 27,
-      "last_active": "2026-03-10T16:55:22.922175"
+      "total_interactions": 30,
+      "last_active": "2026-03-11T07:34:54.188776"
     },
     "COA": {
       "units": {
@@ -213,8 +214,8 @@
       "last_active": "2026-03-08T07:45:19.375362"
     }
   },
-  "total_interactions": 92,
-  "last_active": "2026-03-10T16:55:22.922175",
+  "total_interactions": 96,
+  "last_active": "2026-03-11T07:36:15.468196",
   "first_seen": "2026-03-07T06:20:21.695595",
   "sessions": [
     {
@@ -534,6 +535,24 @@
       "unit_number": 2,
       "type": "study",
       "timestamp": "2026-03-10T16:54:56.009082"
+    },
+    {
+      "subject_code": "APJ",
+      "unit_number": 3,
+      "type": "study",
+      "timestamp": "2026-03-11T05:50:11.336209"
+    },
+    {
+      "subject_code": "APJ",
+      "unit_number": 3,
+      "type": "study",
+      "timestamp": "2026-03-11T07:34:54.152420"
+    },
+    {
+      "subject_code": "DAA",
+      "unit_number": 2,
+      "type": "study",
+      "timestamp": "2026-03-11T07:36:15.407784"
     }
   ]
 }

@@ -97,8 +97,10 @@ async def upload_document(
         for i in range(len(chunks))
     ]
 
-    # Add to RAG vector store (section-specific collection)
+    # Add to RAG vector store — store in BOTH unit-specific AND general collections
+    # This ensures queries with and without unit filters can find the documents
     try:
+        # 1. Store in unit-specific collection
         count = await rag_service.add_documents(
             texts=chunks,
             metadatas=metadatas,
@@ -106,6 +108,23 @@ async def upload_document(
             subject_code=subject_code,
             unit_number=unit_number,
             section=section
+        )
+
+        # 2. Also store in general collection (broader fallback for queries)
+        general_ids = [f"{cid}_gen" for cid in chunk_ids]
+        await rag_service.add_documents(
+            texts=chunks,
+            metadatas=metadatas,
+            ids=general_ids,
+            subject_code=subject_code,
+            unit_number=None,  # General collection
+            section=section
+        )
+        import logging
+        logger = logging.getLogger("syllabus_ai")
+        logger.info(
+            f"✓ Indexed {count} chunks for {subject_code} Unit {unit_number} "
+            f"Section {section or 'General'} (unit + general collections)"
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to index document: {e}")

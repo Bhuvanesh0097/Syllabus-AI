@@ -2,7 +2,7 @@
  * API Client — centralized HTTP communication with the backend.
  */
 
-const API_BASE = 'http://localhost:8000';
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 class ApiClient {
   constructor(baseUrl = API_BASE) {
@@ -214,6 +214,19 @@ class ApiClient {
     return this.request('/api/admin/verify-pin', {
       method: 'POST',
       body: JSON.stringify({ pin }),
+    });
+  }
+
+  // ── Feedback ─────────────────────────────────────────────
+  async submitFeedback(rating, comment, studentName, section) {
+    return this.request('/api/feedback/submit', {
+      method: 'POST',
+      body: JSON.stringify({
+        rating,
+        comment: comment || '',
+        student_name: studentName || '',
+        section: section || '',
+      }),
     });
   }
 

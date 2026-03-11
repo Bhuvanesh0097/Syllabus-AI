@@ -69,13 +69,46 @@ async def extract_text(filepath: str) -> str:
 
 
 def _extract_pdf(filepath: str) -> str:
-    """Extract text from PDF using PyMuPDF."""
+    """Extract text from PDF using PyMuPDF.
+    Falls back to Gemini Vision OCR for scanned/handwritten pages.
+    """
     import fitz  # PyMuPDF
+
+    # ── Standard digital text extraction (existing behavior) ──
     text_parts = []
     with fitz.open(filepath) as doc:
+        total_pages = len(doc)
         for page in doc:
             text_parts.append(page.get_text())
-    return "\n\n".join(text_parts)
+
+    full_text = "\n\n".join(text_parts)
+    total_words = len(full_text.split())
+    avg_words_per_page = total_words / max(total_pages, 1)
+
+    # Sufficient text extracted → return as-is (unchanged behavior)
+    if avg_words_per_page >= 20:
+        return full_text
+
+    # ── Low text density → likely scanned or handwritten ─────
+    # Attempt Gemini Vision OCR if API key is configured
+    if not settings.gemini_api_key:
+        logger.warning(
+            f"Low text ({avg_words_per_page:.0f} avg words/page) in "
+            f"{Path(filepath).name}. Set GEMINI_API_KEY in .env for "
+            f"handwritten/scanned note support."
+        )
+        return full_text
+
+    logger.info(
+        f"Low text density ({avg_words_per_page:.0f} words/page) in "
+        f"{Path(filepath).name} — activating Gemini Vision OCR"
+    )
+    try:
+        from services.ocr_service import extract_pdf_with_ocr
+        return extract_pdf_with_ocr(filepath)
+    except Exception as e:
+        logger.warning(f"OCR fallback failed ({e}). Using standard extraction.")
+        return full_text
 
 
 def _extract_pptx(filepath: str) -> str:

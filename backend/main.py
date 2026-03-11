@@ -89,6 +89,7 @@ from routes.study_plan import router as study_plan_router
 from routes.memory import router as memory_router
 from routes.study_mode import router as study_mode_router
 from routes.admin import router as admin_router
+from routes.feedback import router as feedback_router
 
 app.include_router(subjects_router)
 app.include_router(chat_router)
@@ -97,6 +98,7 @@ app.include_router(study_plan_router)
 app.include_router(memory_router)
 app.include_router(study_mode_router)
 app.include_router(admin_router)
+app.include_router(feedback_router)
 
 
 # ── Health & Status Endpoints ────────────────────────────────

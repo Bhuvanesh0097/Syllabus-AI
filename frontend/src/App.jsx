@@ -13,6 +13,7 @@ import StudyMode from './pages/StudyMode';
 import StudyPlan from './pages/StudyPlan';
 import Documents from './pages/Documents';
 import Settings from './pages/Settings';
+import Feedback from './pages/Feedback';
 
 const DEFAULT_SETTINGS = { tone: 'professional', darkMode: true };
 
@@ -137,6 +138,12 @@ function App() {
         return (
           <Documents
             onBack={() => navigate('dashboard')}
+          />
+        );
+      case 'feedback':
+        return (
+          <Feedback
+            studentInfo={studentInfo}
           />
         );
       case 'settings':
