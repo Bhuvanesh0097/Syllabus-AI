@@ -119,22 +119,181 @@
 .sp__refine-hint kbd { padding: 1px 5px; background: var(--bg-glass); border: 1px solid var(--border-subtle); border-radius: 4px; font-family: var(--font-mono); font-size: 10px; color: var(--text-secondary); }
 
 @media (max-width: 768px) {
-  .sp { padding: var(--space-5) var(--space-3); gap: var(--space-4); }
-  .sp__header { gap: var(--space-2); }
-  .sp__header-title { font-size: var(--text-lg); }
-  .sp__toolbar { flex-direction: column; align-items: flex-start; gap: var(--space-3); padding: var(--space-3); }
-  .sp__subject-pills, .sp__section-pills { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 2px; }
-  .sp__subject-pills::-webkit-scrollbar, .sp__section-pills::-webkit-scrollbar { display: none; }
-  .sp__pill { white-space: nowrap; flex-shrink: 0; }
-  .sp__chatbox-input { padding: var(--space-3); font-size: var(--text-sm); }
-  .sp__chatbox-footer { flex-direction: column; gap: var(--space-3); }
-  .sp__stats { flex-wrap: wrap; gap: var(--space-2); }
-  .sp__stat { font-size: 10px; padding: var(--space-1) var(--space-3); }
-  .sp__download-wrap { margin-left: 0; }
-  .sp__download-menu { left: 0; right: auto; }
-  .sp__refine-input-wrap { flex-direction: row; }
-  .sp__quick-prompts { overflow-x: auto; flex-wrap: nowrap; scrollbar-width: none; }
-  .sp__quick-prompts::-webkit-scrollbar { display: none; }
-  .sp__quick-btn { white-space: nowrap; flex-shrink: 0; }
-  .sp__generate-btn { width: 100%; justify-content: center; }
+  .sp {
+    padding: var(--space-5) var(--space-3);
+    gap: var(--space-4);
+  }
+
+  /* ── Header — stack vertically ── */
+  .sp__header {
+    gap: var(--space-2);
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .sp__header-info {
+    gap: var(--space-2);
+    min-width: 0;
+    overflow: hidden;
+  }
+  .sp__header-icon {
+    font-size: var(--text-lg);
+  }
+  .sp__header-title {
+    font-size: var(--text-base);
+  }
+  .sp__header-sub {
+    font-size: var(--text-xs);
+  }
+
+  /* ── Toolbar — vertical layout ── */
+  .sp__toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-3);
+    padding: var(--space-3);
+  }
+  .sp__toolbar-group {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+  .sp__subject-pills,
+  .sp__section-pills {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+    width: 100%;
+  }
+  .sp__subject-pills::-webkit-scrollbar,
+  .sp__section-pills::-webkit-scrollbar {
+    display: none;
+  }
+  .sp__pill {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* ── Chatbox ── */
+  .sp__chatbox-input {
+    padding: var(--space-3);
+    font-size: var(--text-sm);
+    min-height: 100px;
+  }
+  .sp__chatbox-footer {
+    flex-direction: column;
+    gap: var(--space-3);
+    align-items: stretch;
+  }
+  .sp__chatbox-hint {
+    text-align: center;
+    font-size: 10px;
+  }
+  .sp__generate-btn {
+    width: 100%;
+    justify-content: center;
+    padding: var(--space-3) var(--space-4);
+  }
+
+  /* ── Quick Prompts ── */
+  .sp__quick-prompts {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    scrollbar-width: none;
+    gap: var(--space-2);
+  }
+  .sp__quick-prompts::-webkit-scrollbar {
+    display: none;
+  }
+  .sp__quick-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+    font-size: 11px;
+    padding: var(--space-1) var(--space-3);
+  }
+
+  /* ── Result View ── */
+  .sp__stats {
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+  .sp__stat {
+    font-size: 10px;
+    padding: var(--space-1) var(--space-3);
+  }
+  .sp__download-wrap {
+    margin-left: 0;
+    width: 100%;
+  }
+  .sp__download-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .sp__download-menu {
+    left: 0;
+    right: 0;
+    min-width: unset;
+  }
+
+  /* ── User Request ── */
+  .sp__user-request {
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-3);
+  }
+  .sp__user-request-text {
+    word-break: break-word;
+    font-size: var(--text-xs);
+  }
+
+  /* ── Plan Content ── */
+  .sp__plan-content {
+    padding: var(--space-2) 0;
+  }
+
+  /* ── Refine Section ── */
+  .sp__refine-section {
+    gap: var(--space-3);
+  }
+  .sp__refine-divider-text {
+    font-size: 10px;
+  }
+  .sp__refine-messages {
+    max-height: 150px;
+  }
+  .sp__refine-msg {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--text-xs);
+    gap: var(--space-2);
+  }
+  .sp__refine-input-wrap {
+    flex-direction: row;
+    padding: var(--space-1) var(--space-2);
+  }
+  .sp__refine-input {
+    font-size: var(--text-xs);
+    padding: var(--space-1);
+  }
+  .sp__refine-send {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+  .sp__refine-hint {
+    font-size: 10px;
+    text-align: center;
+  }
+  .sp__error {
+    font-size: var(--text-xs);
+    padding: var(--space-2) var(--space-3);
+  }
+
+  /* ── Loading State ── */
+  .sp__loading-state {
+    padding: var(--space-4);
+  }
+  .sp__loading-step {
+    font-size: var(--text-xs);
+  }
 }

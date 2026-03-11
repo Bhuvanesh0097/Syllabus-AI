@@ -437,9 +437,10 @@
 }
 
 .landing__unit-btn--active {
-  background: rgba(108, 99, 255, 0.1);
+  background: rgba(108, 99, 255, 0.18);
   border-color: var(--chip-color, var(--accent-primary));
   transform: translateY(-2px);
+  box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.3), 0 4px 16px rgba(108, 99, 255, 0.15);
 }
 
 .landing__unit-num {
@@ -452,6 +453,7 @@
 
 .landing__unit-btn--active .landing__unit-num {
   color: var(--chip-color, var(--accent-primary));
+  text-shadow: 0 0 12px rgba(108, 99, 255, 0.4);
 }
 
 .landing__unit-btn:hover .landing__unit-num {
@@ -462,6 +464,11 @@
   font-size: var(--text-xs);
   color: var(--text-tertiary);
   font-weight: 500;
+}
+
+.landing__unit-btn--active .landing__unit-label {
+  color: var(--text-primary);
+  font-weight: 700;
 }
 
 
@@ -569,18 +576,60 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .landing {
-    padding: var(--space-4);
+    padding: var(--space-5) var(--space-3);
+    padding-top: calc(var(--space-5) + 56px);
+    min-height: calc(100vh - 56px);
   }
 
   .landing__form {
-    padding: var(--space-5);
+    padding: var(--space-4);
+    gap: var(--space-4);
+  }
+
+  .landing__form-title {
+    font-size: var(--text-base);
   }
 
   .landing__field-row {
     grid-template-columns: 1fr;
-    gap: var(--space-4);
+    gap: var(--space-3);
+  }
+
+  .landing__subject-grid {
+    justify-content: flex-start;
+    gap: var(--space-2);
+  }
+
+  .landing__subject-chip {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--text-xs);
+  }
+
+  .landing__unit-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--space-2);
+  }
+
+  .landing__unit-btn {
+    padding: var(--space-2) var(--space-1);
+  }
+
+  .landing__submit-btn {
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--text-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .landing {
+    padding: var(--space-4) var(--space-3);
+    padding-top: calc(var(--space-4) + 56px);
+  }
+
+  .landing__form {
+    padding: var(--space-4);
   }
 
   .landing__unit-grid {

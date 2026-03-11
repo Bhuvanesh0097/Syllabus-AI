@@ -63,18 +63,144 @@
 .chat-page__new-chat-start--ready:hover { box-shadow: 0 6px 30px rgba(108, 99, 255, 0.35); transform: translateY(-1px); }
 
 @media (max-width: 768px) {
-  .chat-page { height: calc(100vh - 56px); }
-  .chat-page__header { padding: var(--space-2) var(--space-3); gap: var(--space-2); flex-wrap: wrap; }
-  .chat-page__header-left { gap: var(--space-2); flex: 1; min-width: 0; }
-  .chat-page__header-right { gap: var(--space-2); }
-  .chat-page__subject-name { font-size: var(--text-xs); }
-  .chat-page__messages { padding: var(--space-3) var(--space-3); gap: var(--space-3); }
-  .chat-page__input-area { padding: var(--space-2) var(--space-3); }
+  .chat-page {
+    height: calc(100vh - 56px);
+  }
+
+  /* ── Header alignment ── */
+  .chat-page__header {
+    padding: var(--space-2) var(--space-3);
+    gap: var(--space-2);
+    flex-wrap: nowrap;
+  }
+  .chat-page__header-left {
+    gap: var(--space-2);
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+  }
+  .chat-page__header-left .btn {
+    padding: var(--space-1) var(--space-2);
+    font-size: var(--text-xs);
+    flex-shrink: 0;
+  }
+  .chat-page__header-right {
+    gap: var(--space-1);
+    flex-shrink: 0;
+  }
+  .chat-page__header-right .btn {
+    padding: var(--space-1) var(--space-2);
+    font-size: var(--text-xs);
+    white-space: nowrap;
+  }
+  .chat-page__subject-info {
+    gap: var(--space-2);
+    min-width: 0;
+    overflow: hidden;
+  }
+  .chat-page__subject-icon {
+    font-size: var(--text-base);
+    flex-shrink: 0;
+  }
+  .chat-page__subject-name {
+    font-size: var(--text-xs);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 80px;
+  }
+  .chat-page__unit-badge {
+    font-size: 10px;
+    padding: 1px 6px;
+    margin-left: var(--space-1);
+    flex-shrink: 0;
+  }
   .chat-page__student-name { display: none; }
-  .chat-page__empty { padding: var(--space-6); }
-  .chat-page__greeting-loading { padding: var(--space-6); }
-  .chat-page__new-chat-panel { width: 95vw; padding: var(--space-5); }
-  .chat-page__new-chat-subjects { gap: var(--space-1); }
-  .chat-page__new-chat-units { flex-wrap: wrap; }
-  .chat-page__switch-notice { margin: 0 var(--space-3); font-size: 10px; }
+
+  /* ── Messages area ── */
+  .chat-page__messages {
+    padding: var(--space-3);
+    gap: var(--space-3);
+  }
+
+  /* ── Input area ── */
+  .chat-page__input-area {
+    padding: var(--space-2) var(--space-3);
+  }
+
+  /* ── Empty/loading states ── */
+  .chat-page__empty {
+    padding: var(--space-6) var(--space-4);
+  }
+  .chat-page__empty h2 {
+    font-size: var(--text-lg);
+  }
+  .chat-page__greeting-loading {
+    padding: var(--space-6) var(--space-4);
+  }
+  .chat-page__greeting-loader {
+    padding: var(--space-5);
+  }
+  .chat-page__greeting-loader h3 {
+    font-size: var(--text-sm);
+    text-align: center;
+  }
+  .chat-page__greeting-loader p {
+    font-size: var(--text-xs);
+    text-align: center;
+  }
+
+  /* ── Typing indicator ── */
+  .chat-page__typing {
+    padding: var(--space-2) var(--space-3);
+  }
+  .chat-page__typing-avatar {
+    width: 28px;
+    height: 28px;
+    font-size: var(--text-xs);
+  }
+
+  /* ── New chat panel ── */
+  .chat-page__new-chat-panel {
+    width: 95vw;
+    padding: var(--space-5);
+    gap: var(--space-4);
+  }
+  .chat-page__new-chat-title {
+    font-size: var(--text-base);
+  }
+  .chat-page__new-chat-subjects {
+    gap: var(--space-1);
+    flex-wrap: wrap;
+  }
+  .chat-page__new-chat-chip {
+    padding: var(--space-1) var(--space-2);
+    font-size: var(--text-xs);
+  }
+  .chat-page__new-chat-units {
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+  .chat-page__new-chat-unit-btn {
+    flex: 0 1 calc(33.33% - var(--space-2));
+    padding: var(--space-2);
+    font-size: var(--text-xs);
+    text-align: center;
+  }
+  .chat-page__new-chat-actions {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .chat-page__new-chat-start {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+
+  /* ── Context switch notice ── */
+  .chat-page__switch-notice {
+    margin: 0 var(--space-3);
+    font-size: 10px;
+    padding: var(--space-1) var(--space-3);
+  }
 }
