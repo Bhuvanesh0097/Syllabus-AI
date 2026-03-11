@@ -52,7 +52,7 @@ function useChat() {
             setMessages([
                 {
                     role: 'assistant',
-                    content: `Hello ${studentInfo.name} 👋\n\nWelcome to your study session!\n\n**📚 Subject:** ${subjectName}\n**📋 Unit:** Unit ${unitNum}\n\nI'm your AI Study Assistant. I'm currently having trouble connecting to the AI service — please make sure the **Gemini API Key** is configured in the backend \`.env\` file.\n\nOnce connected, I'll be able to:\n- 📝 Help you prepare for 2-mark and 10-mark questions\n- 💡 Explain concepts clearly\n- 📋 Create quick revision summaries\n\nTry sending me a message! 🎯`,
+                    content: `Hello ${studentInfo.name} 👋\n\nWelcome to your study session!\n\n**📚 Subject:** ${subjectName}\n**📋 Unit:** Unit ${unitNum}\n\nI'm your AI Study Assistant. I'm currently having trouble connecting to the AI service — please make sure the backend server is running and the **API keys** are configured correctly.\n\nOnce connected, I'll be able to:\n- 📝 Help you prepare for 2-mark and 10-mark questions\n- 💡 Explain concepts clearly\n- 📋 Create quick revision summaries\n\nTry sending me a message! 🎯`,
                     timestamp: new Date().toISOString(),
                     isGreeting: true,
                 },
