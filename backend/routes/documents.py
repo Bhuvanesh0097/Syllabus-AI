@@ -190,28 +190,10 @@ async def delete_document(
     if not filepath.exists():
         raise HTTPException(status_code=404, detail=f"File not found: {filename}")
 
-    # Remove chunks from all ChromaDB collections for this subject/section
+    # Remove chunks from Supabase
     removed_chunks = 0
-    base = subject_code.lower()
-    if section:
-        base = f"{base}_{section.lower()}"
-
     try:
-        client = rag_service._get_chroma_client()
-        for unit_num in range(0, 6):  # 0 = general, 1-5 = units
-            collection_name = (
-                f"{base}_unit_{unit_num}"
-                if unit_num > 0
-                else f"{base}_general"
-            )
-            try:
-                collection = client.get_collection(collection_name)
-                existing = collection.get(where={"source": filename})
-                if existing and existing["ids"]:
-                    collection.delete(ids=existing["ids"])
-                    removed_chunks += len(existing["ids"])
-            except Exception:
-                continue
+        removed_chunks = await rag_service.delete_by_source(subject_code, filename, section)
     except Exception:
         pass
 

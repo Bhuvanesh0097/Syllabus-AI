@@ -1,7 +1,7 @@
 """
 RAG Service — Retrieval-Augmented Generation pipeline.
-Manages ChromaDB collections, document embedding, and context retrieval.
-Phase 1 provides the skeleton; full implementation in Phase 4.
+Uses Supabase PostgreSQL with full-text search for persistent storage.
+Replaces ephemeral ChromaDB with persistent Supabase database.
 """
 
 import logging
@@ -10,54 +10,31 @@ from config import settings
 
 logger = logging.getLogger("syllabus_ai")
 
-_chroma_client = None
+_supabase_client = None
 
 
-def _get_chroma_client():
-    """Lazy-initialize ChromaDB client."""
-    global _chroma_client
-    if _chroma_client is not None:
-        return _chroma_client
+def _get_supabase_client():
+    """Lazy-initialize Supabase client for RAG."""
+    global _supabase_client
+    if _supabase_client is not None:
+        return _supabase_client
+
+    if not settings.supabase_url or not settings.supabase_anon_key:
+        raise ValueError(
+            "Supabase not configured. Set SUPABASE_URL and SUPABASE_ANON_KEY."
+        )
 
     try:
-        import chromadb
-        from chromadb.config import Settings as ChromaSettings
-
-        _chroma_client = chromadb.PersistentClient(
-            path=settings.chroma_persist_dir,
-            settings=ChromaSettings(anonymized_telemetry=False)
+        from supabase import create_client
+        _supabase_client = create_client(
+            settings.supabase_url,
+            settings.supabase_anon_key
         )
-        logger.info(f"✓ ChromaDB initialized at: {settings.chroma_persist_dir}")
-        return _chroma_client
+        logger.info("✓ Supabase RAG client initialized")
+        return _supabase_client
     except Exception as e:
-        logger.error(f"✗ Failed to initialize ChromaDB: {e}")
+        logger.error(f"✗ Failed to initialize Supabase RAG: {e}")
         raise
-
-
-def get_or_create_collection(subject_code: str, unit_number: Optional[int] = None, section: Optional[str] = None):
-    """
-    Get or create a ChromaDB collection for a subject/unit/section.
-    Collection naming: 
-      With section:    {subject_code}_{section}_unit_{number} or {subject_code}_{section}_general
-      Without section: {subject_code}_unit_{number} or {subject_code}_general
-    """
-    client = _get_chroma_client()
-    
-    # Build collection name with optional section
-    base = subject_code.lower()
-    if section:
-        base = f"{base}_{section.lower()}"
-    
-    collection_name = (
-        f"{base}_unit_{unit_number}"
-        if unit_number
-        else f"{base}_general"
-    )
-
-    return client.get_or_create_collection(
-        name=collection_name,
-        metadata={"subject": subject_code, "unit": unit_number or 0, "section": section or ""}
-    )
 
 
 async def retrieve_context(
@@ -68,86 +45,61 @@ async def retrieve_context(
     top_k: int = 5
 ) -> str:
     """
-    Retrieve relevant context from the vector store for a given query.
-    Uses a multi-level fallback strategy to maximize retrieval success:
-      1. Section + Unit specific collection
-      2. Section + General collection
-      3. No-section + Unit specific collection
-      4. No-section + General collection
-
-    Args:
-        query: User's question
-        subject_code: Subject to search within
-        unit_number: Optional unit filter
-        section: Optional section filter (A, B, C)
-        top_k: Number of results to retrieve
-
-    Returns:
-        Concatenated relevant document chunks
+    Retrieve relevant context from Supabase using full-text search.
+    Multi-level fallback: section+unit → section+general → unit → general.
     """
+    client = _get_supabase_client()
     all_chunks = []
 
-    # Build search strategy with multiple fallback levels
-    # (label, unit_num, section_val) — ordered by specificity
-    collections_to_try = []
-
-    # Level 1: Section + Unit (most specific)
+    # Fallback search levels (most specific → broadest)
+    searches = []
     if unit_number and section:
-        collections_to_try.append(("section+unit", unit_number, section))
-    
-    # Level 2: Section + General
+        searches.append(("section+unit", unit_number, section))
     if section:
-        collections_to_try.append(("section+general", None, section))
-
-    # Level 3: No-section + Unit (fallback for docs ingested without section)
+        searches.append(("section+general", None, section))
     if unit_number:
-        collections_to_try.append(("unit", unit_number, None))
+        searches.append(("unit", unit_number, None))
+    searches.append(("general", None, None))
 
-    # Level 4: No-section + General (broadest fallback)
-    collections_to_try.append(("general", None, None))
-
-    for label, unit_num, sec in collections_to_try:
+    for label, unit_num, sec in searches:
         try:
-            collection = get_or_create_collection(subject_code, unit_num, sec)
+            result = client.rpc('search_chunks', {
+                'query_text': query,
+                'filter_subject': subject_code,
+                'filter_unit': unit_num,
+                'filter_section': sec or '',
+                'match_count': top_k
+            }).execute()
 
-            if collection.count() == 0:
-                continue
-
-            results = collection.query(
-                query_texts=[query],
-                n_results=top_k
-            )
-
-            if results and results["documents"] and results["documents"][0]:
-                chunks = results["documents"][0]
+            if result.data:
+                chunks = [row['content'] for row in result.data if row.get('content')]
                 all_chunks.extend(chunks)
                 logger.info(
-                    f"RAG retrieved {len(chunks)} chunks from "
-                    f"{collection.name} ({label})"
+                    f"RAG retrieved {len(chunks)} chunks ({label}) "
+                    f"for {subject_code}"
                 )
-                # If we got enough results from a specific collection, stop searching
                 if len(all_chunks) >= top_k:
                     break
 
         except Exception as e:
-            logger.warning(f"RAG retrieval from {label} failed: {e}")
+            logger.warning(f"RAG search ({label}) failed: {e}")
             continue
 
     if not all_chunks:
-        logger.info(f"No RAG context found for {subject_code}/Unit {unit_number} (section={section})")
+        logger.info(f"No RAG context for {subject_code}/Unit {unit_number}")
         return ""
 
-    # Deduplicate and join
+    # Deduplicate
     seen = set()
-    unique_chunks = []
+    unique = []
     for chunk in all_chunks:
-        chunk_key = chunk[:100]  # Use first 100 chars as dedup key
-        if chunk_key not in seen:
-            seen.add(chunk_key)
-            unique_chunks.append(chunk)
+        key = chunk[:100]
+        if key not in seen:
+            seen.add(key)
+            unique.append(chunk)
 
-    context = "\n\n---\n\n".join(unique_chunks[:top_k])
-    logger.info(f"RAG returning {len(unique_chunks[:top_k])} unique chunks for {subject_code}")
+    context = "\n\n---\n\n".join(unique[:top_k])
+    logger.info(f"RAG returning {len(unique[:top_k])} chunks for {subject_code}")
     return context
 
 
@@ -159,50 +111,79 @@ async def add_documents(
     unit_number: Optional[int] = None,
     section: Optional[str] = None
 ) -> int:
-    """
-    Add document chunks to the vector store.
+    """Add document chunks to Supabase."""
+    client = _get_supabase_client()
 
-    Args:
-        texts: List of text chunks
-        metadatas: Metadata for each chunk
-        ids: Unique IDs for each chunk
-        subject_code: Subject code
-        unit_number: Unit number
-        section: Section (A, B, or C)
+    rows = []
+    for i, (text, meta, chunk_id) in enumerate(zip(texts, metadatas, ids)):
+        rows.append({
+            "id": chunk_id,
+            "content": text,
+            "subject_code": subject_code,
+            "unit_number": unit_number or 0,
+            "section": section or "",
+            "source_file": meta.get("source", ""),
+            "chunk_index": meta.get("chunk_index", i),
+        })
 
-    Returns:
-        Number of chunks added
-    """
     try:
-        collection = get_or_create_collection(subject_code, unit_number, section)
-        collection.add(
-            documents=texts,
-            metadatas=metadatas,
-            ids=ids
+        # Upsert to handle re-uploads gracefully
+        client.table('document_chunks').upsert(rows).execute()
+        logger.info(
+            f"Added {len(rows)} chunks to Supabase for "
+            f"{subject_code}/Unit {unit_number} Section {section or 'Gen'}"
         )
-        logger.info(f"Added {len(texts)} chunks to {subject_code}/Unit {unit_number}")
-        return len(texts)
+        return len(rows)
     except Exception as e:
-        logger.error(f"Failed to add documents: {e}")
+        logger.error(f"Failed to add documents to Supabase: {e}")
         raise
 
 
+async def delete_by_source(
+    subject_code: str,
+    filename: str,
+    section: Optional[str] = None
+) -> int:
+    """Delete all chunks from a specific source file."""
+    client = _get_supabase_client()
+    try:
+        query = client.table('document_chunks') \
+            .delete() \
+            .eq('subject_code', subject_code) \
+            .eq('source_file', filename)
+
+        if section:
+            query = query.eq('section', section)
+
+        result = query.execute()
+        count = len(result.data) if result.data else 0
+        logger.info(f"Deleted {count} chunks for {filename}")
+        return count
+    except Exception as e:
+        logger.error(f"Failed to delete chunks: {e}")
+        return 0
+
+
 async def get_collection_stats(subject_code: str, section: Optional[str] = None) -> Dict[str, Any]:
-    """Get statistics for a subject's collections (optionally filtered by section)."""
-    client = _get_chroma_client()
+    """Get chunk counts per unit for a subject."""
+    client = _get_supabase_client()
     stats = {}
 
-    base = subject_code.lower()
-    if section:
-        base = f"{base}_{section.lower()}"
-
     for unit_num in range(1, 6):
-        collection_name = f"{base}_unit_{unit_num}"
         try:
-            collection = client.get_collection(collection_name)
+            query = client.table('document_chunks') \
+                .select('id', count='exact') \
+                .eq('subject_code', subject_code) \
+                .eq('unit_number', unit_num)
+
+            if section:
+                query = query.eq('section', section)
+
+            result = query.execute()
+            chunk_count = result.count if result.count is not None else 0
             stats[f"unit_{unit_num}"] = {
-                "chunks": collection.count(),
-                "status": "ready" if collection.count() > 0 else "empty"
+                "chunks": chunk_count,
+                "status": "ready" if chunk_count > 0 else "not_created"
             }
         except Exception:
             stats[f"unit_{unit_num}"] = {"chunks": 0, "status": "not_created"}
@@ -211,14 +192,18 @@ async def get_collection_stats(subject_code: str, section: Optional[str] = None)
 
 
 async def health_check() -> dict:
-    """Check RAG system health."""
+    """Check Supabase RAG health."""
     try:
-        client = _get_chroma_client()
-        collections = client.list_collections()
+        client = _get_supabase_client()
+        result = client.table('document_chunks') \
+            .select('id', count='exact') \
+            .limit(1) \
+            .execute()
+        total = result.count if result.count is not None else 0
         return {
             "status": "ready",
-            "collections": len(collections),
-            "persist_dir": settings.chroma_persist_dir
+            "storage": "supabase",
+            "total_chunks": total
         }
     except Exception as e:
         return {"status": "error", "error": str(e)}
