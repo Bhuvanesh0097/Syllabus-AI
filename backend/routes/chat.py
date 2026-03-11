@@ -313,7 +313,7 @@ async def send_message(request: ChatMessageRequest):
     except Exception as e:
         ai_response = (
             "I apologize, but I'm having trouble generating a response right now. "
-            "Please make sure the Gemini API key is configured and try again."
+            "Please try again in a moment. If this persists, the AI server may be overloaded."
         )
 
     # Record AI response
