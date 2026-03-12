@@ -270,19 +270,82 @@
     padding: var(--space-2) var(--space-3);
   }
 
-  .chat-msg__markdown pre,
-  .chat-msg__markdown .chat-code-block {
-    padding: var(--space-3);
-    font-size: var(--text-xs);
-  }
-
-  .chat-msg__markdown table {
-    font-size: var(--text-xs);
-    display: block;
-    overflow-x: auto;
+  .chat-msg__header {
+    gap: var(--space-2);
+    margin-bottom: var(--space-1);
   }
 
   .chat-msg__sender {
     font-size: var(--text-xs);
+  }
+
+  .chat-msg__time {
+    font-size: 10px;
+  }
+
+  /* Markdown heading sizes */
+  .chat-msg__markdown h1, .chat-msg__markdown .chat-h1 {
+    font-size: var(--text-lg);
+    margin: var(--space-3) 0 var(--space-1);
+  }
+  .chat-msg__markdown h2, .chat-msg__markdown .chat-h2 {
+    font-size: var(--text-base);
+    margin: var(--space-3) 0 var(--space-1);
+  }
+  .chat-msg__markdown h3, .chat-msg__markdown .chat-h3 {
+    font-size: var(--text-sm);
+  }
+
+  /* Prevent code overflow */
+  .chat-msg__markdown pre,
+  .chat-msg__markdown .chat-code-block {
+    padding: var(--space-3);
+    font-size: var(--text-xs);
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .chat-msg__markdown code, .chat-msg__markdown .chat-inline-code {
+    font-size: 0.8em;
+    word-break: break-word;
+  }
+
+  /* Table overflow handling */
+  .chat-msg__markdown table {
+    font-size: var(--text-xs);
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .chat-msg__markdown th,
+  .chat-msg__markdown td {
+    padding: var(--space-1) var(--space-2);
+    white-space: nowrap;
+  }
+
+  /* Blockquote */
+  .chat-msg__markdown blockquote, .chat-msg__markdown .chat-blockquote {
+    padding: var(--space-2) var(--space-3);
+    margin: var(--space-2) 0;
+  }
+
+  /* Lists */
+  .chat-msg__markdown ul, .chat-msg__markdown .chat-ul,
+  .chat-msg__markdown ol, .chat-msg__markdown .chat-ol {
+    padding-left: var(--space-4);
+  }
+
+  /* Sources */
+  .chat-msg__sources {
+    gap: var(--space-1);
+  }
+
+  .chat-msg__sources-label {
+    font-size: 10px;
+  }
+
+  .chat-msg__quality-badge {
+    font-size: 10px;
   }
 }

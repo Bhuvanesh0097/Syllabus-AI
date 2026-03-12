@@ -269,3 +269,31 @@
     right: 0;
   }
 }
+
+@media (max-width: 480px) {
+  .chat-input__quick-chip {
+    font-size: 9px;
+    padding: 2px var(--space-1);
+  }
+
+  .chat-input__textarea {
+    padding: var(--space-2);
+    font-size: var(--text-xs);
+    min-height: 36px;
+  }
+
+  .chat-input__send {
+    width: 36px;
+    height: 36px;
+    font-size: var(--text-base);
+  }
+
+  .chat-input__style-btn {
+    padding: 2px var(--space-1);
+    font-size: 9px;
+  }
+
+  .chat-input__style-menu {
+    width: 170px;
+  }
+}

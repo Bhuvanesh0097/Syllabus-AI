@@ -297,3 +297,43 @@
     font-size: var(--text-xs);
   }
 }
+
+@media (max-width: 480px) {
+  .sp {
+    padding: var(--space-3) var(--space-2);
+    gap: var(--space-3);
+  }
+
+  .sp__header-title {
+    font-size: var(--text-sm);
+  }
+
+  .sp__toolbar {
+    padding: var(--space-2);
+  }
+
+  .sp__pill {
+    font-size: 10px;
+    padding: var(--space-1) var(--space-2);
+  }
+
+  .sp__chatbox-input {
+    padding: var(--space-2);
+    min-height: 80px;
+  }
+
+  .sp__generate-btn {
+    font-size: var(--text-xs);
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .sp__refine-input {
+    font-size: 11px;
+  }
+
+  .sp__refine-send {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+}

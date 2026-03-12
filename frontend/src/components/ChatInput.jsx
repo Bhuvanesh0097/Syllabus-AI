@@ -84,10 +84,7 @@ function ChatInput({ onSend, isLoading, subjectCode }) {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    placeholder={subjectCode
-                        ? `Ask about ${subjectCode}... Try "explain simply" or "make it brief"`
-                        : "Ask anything... Try natural phrases like \"summarize\" or \"break it down\""
-                    }
+                    placeholder="Ask Nexora"
                     rows={1}
                     disabled={isLoading}
                 />
