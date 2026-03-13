@@ -3,7 +3,7 @@
  * Manages student session data, settings, and theme from the setup form.
  */
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import useChat from './hooks/useChat';
 import Layout from './components/Layout';
 import Landing from './pages/Landing';
@@ -34,6 +34,9 @@ function App() {
   const [pageParams, setPageParams] = useState({});
   const [appSettings, setAppSettings] = useState(loadSettings);
 
+  // Navigation history stack for back button
+  const navHistoryRef = useRef([]);
+
   // Lift chat state to App level so it persists across page switches
   const chatState = useChat();
 
@@ -55,7 +58,13 @@ function App() {
   }, [appSettings.darkMode]);
 
   const navigate = useCallback((page, params = {}) => {
-    setCurrentPage(page);
+    // Push current page onto history stack before navigating (skip landing)
+    setCurrentPage((prev) => {
+      if (prev && prev !== 'landing' && prev !== page) {
+        navHistoryRef.current = [...navHistoryRef.current, prev];
+      }
+      return page;
+    });
     setPageParams(params);
 
     if (params.subjectCode) {
@@ -66,19 +75,33 @@ function App() {
     }
   }, []);
 
+  // Go back to the previous page in history (defaults to dashboard)
+  const goBack = useCallback(() => {
+    const history = navHistoryRef.current;
+    if (history.length === 0) {
+      setCurrentPage('dashboard');
+      setPageParams({});
+      return;
+    }
+    const prevPage = history[history.length - 1];
+    navHistoryRef.current = history.slice(0, -1);
+    setCurrentPage(prevPage);
+    setPageParams({});
+  }, []);
+
   // Called when student submits the setup form
   const handleStartPreparation = useCallback((formData) => {
     setStudentInfo(formData);
     setSelectedSubject(formData.subject);
     setSelectedUnit(formData.unit);
-    setCurrentPage('chat');
-  }, []);
+    navigate('chat');
+  }, [navigate]);
 
   const handleSelectSubject = useCallback((subjectCode) => {
     setSelectedSubject(subjectCode);
     setSelectedUnit(null); // Reset unit — Chat page will show UnitSelector
-    setCurrentPage('chat');
-  }, []);
+    navigate('chat');
+  }, [navigate]);
 
   const handleSwitchContext = useCallback(({ subjectCode, unitNumber }) => {
     if (subjectCode) setSelectedSubject(subjectCode);
@@ -166,6 +189,8 @@ function App() {
       activePage={currentPage}
       onNavigate={navigate}
       studentInfo={studentInfo}
+      canGoBack={currentPage !== 'dashboard'}
+      onGoBack={goBack}
     >
       {renderPage()}
     </Layout>

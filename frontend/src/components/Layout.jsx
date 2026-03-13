@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import Sidebar from './Sidebar';
 import './Layout.css';
 
-function Layout({ children, activePage, onNavigate, studentInfo }) {
+function Layout({ children, activePage, onNavigate, studentInfo, canGoBack, onGoBack }) {
     const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -45,22 +45,46 @@ function Layout({ children, activePage, onNavigate, studentInfo }) {
 
             {/* Mobile Header Bar */}
             <div className="mobile-header">
-                <button
-                    className="mobile-header__menu-btn"
-                    onClick={() => setMobileMenuOpen(true)}
-                    aria-label="Open menu"
-                >
-                    <span className="mobile-header__hamburger">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </span>
-                </button>
+                {canGoBack ? (
+                    <button
+                        className="mobile-header__back-btn"
+                        onClick={onGoBack}
+                        aria-label="Go back"
+                    >
+                        ←
+                    </button>
+                ) : (
+                    <button
+                        className="mobile-header__menu-btn"
+                        onClick={() => setMobileMenuOpen(true)}
+                        aria-label="Open menu"
+                    >
+                        <span className="mobile-header__hamburger">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </span>
+                    </button>
+                )}
                 <div className="mobile-header__brand">
                     <span className="mobile-header__logo">✦</span>
                     <span className="mobile-header__title">Syllabus AI</span>
                 </div>
-                <div className="mobile-header__spacer" />
+                {canGoBack ? (
+                    <button
+                        className="mobile-header__menu-btn"
+                        onClick={() => setMobileMenuOpen(true)}
+                        aria-label="Open menu"
+                    >
+                        <span className="mobile-header__hamburger">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </span>
+                    </button>
+                ) : (
+                    <div className="mobile-header__spacer" />
+                )}
             </div>
 
             {/* Mobile Overlay */}
@@ -87,6 +111,17 @@ function Layout({ children, activePage, onNavigate, studentInfo }) {
                     marginLeft: sidebarCollapsed ? 'var(--sidebar-collapsed)' : 'var(--sidebar-width)',
                 }}
             >
+                {canGoBack && (
+                    <button
+                        className="main-content__back-btn"
+                        onClick={onGoBack}
+                        aria-label="Go back"
+                        title="Go back"
+                    >
+                        <span className="main-content__back-arrow">←</span>
+                        <span className="main-content__back-label">Back</span>
+                    </button>
+                )}
                 {children}
             </main>
         </div>
