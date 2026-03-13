@@ -1,6 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
-   EXAM PAPERS — Browse & Download Question Papers
-   Follows the same structural patterns as StudyMode.
+   EXAM PAPERS — Browse & Download Question Papers (Glassmorphism)
    ═══════════════════════════════════════════════════════════════ */
 
 /* ── Container ── */
@@ -13,9 +12,7 @@
     gap: var(--space-6);
 }
 
-/* ══════════════════════════════════════════════════
- *  Header (shared across all 3 steps)
- * ══════════════════════════════════════════════════ */
+/* ── Header ── */
 .exam-papers__header {
     display: flex;
     align-items: center;
@@ -78,7 +75,7 @@
     cursor: default !important;
 }
 
-/* ── Section Title + Description (used before each grid) ── */
+/* ── Section Title + Description ── */
 .exam-papers__section-heading {
     padding-top: var(--space-2);
 }
@@ -96,9 +93,7 @@
 }
 
 
-/* ══════════════════════════════════════════════════
- *  STEP 1 — Exam Type Cards
- * ══════════════════════════════════════════════════ */
+/* ── STEP 1 — Exam Type Cards (Glass) ── */
 .exam-papers__type-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -120,7 +115,7 @@
 
 .exam-papers__type-card.card-interactive:hover {
     transform: translateY(-4px);
-    box-shadow: var(--shadow-glow);
+    box-shadow: var(--glass-inner-glow-strong), 0 12px 40px rgba(0, 0, 0, 0.08), 0 0 25px rgba(110, 110, 128, 0.06);
 }
 
 .exam-papers__type-card--locked {
@@ -151,7 +146,7 @@
 .exam-papers__type-action {
     margin-top: auto;
     padding-top: var(--space-3);
-    border-top: 1px solid var(--border-subtle);
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
     font-size: var(--text-sm);
     font-weight: 600;
     color: var(--text-tertiary);
@@ -171,8 +166,9 @@
     align-items: center;
     justify-content: center;
     z-index: 2;
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(2px);
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     border-radius: inherit;
 }
 
@@ -194,9 +190,7 @@
 }
 
 
-/* ══════════════════════════════════════════════════
- *  STEP 2 — Section Cards
- * ══════════════════════════════════════════════════ */
+/* ── STEP 2 — Section Cards (Glass) ── */
 .exam-papers__section-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -215,7 +209,7 @@
 
 .exam-papers__section-card:hover {
     transform: translateY(-4px);
-    box-shadow: var(--shadow-glow);
+    box-shadow: var(--glass-inner-glow-strong), 0 12px 40px rgba(0, 0, 0, 0.08), 0 0 25px rgba(110, 110, 128, 0.06);
 }
 
 .exam-papers__section-letter {
@@ -242,7 +236,7 @@
 .exam-papers__section-arrow {
     margin-top: var(--space-3);
     padding-top: var(--space-3);
-    border-top: 1px solid var(--border-subtle);
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
     font-size: var(--text-sm);
     font-weight: 600;
     color: var(--text-tertiary);
@@ -255,9 +249,7 @@
 }
 
 
-/* ══════════════════════════════════════════════════
- *  STEP 3 — Subject Paper Cards
- * ══════════════════════════════════════════════════ */
+/* ── STEP 3 — Subject Paper Cards (Glass with Subject Border) ── */
 .exam-papers__subjects-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -274,7 +266,7 @@
 
 .exam-papers__subject-card:hover {
     transform: translateY(-3px);
-    box-shadow: var(--shadow-glow);
+    box-shadow: var(--glass-inner-glow-strong), 0 8px 30px rgba(0, 0, 0, 0.06), 0 0 18px color-mix(in srgb, var(--subject-color, var(--accent-primary)) 10%, transparent);
 }
 
 .exam-papers__subject-top {
@@ -342,7 +334,7 @@
 
 .exam-papers__download-btn:hover {
     transform: scale(1.02);
-    box-shadow: 0 4px 16px rgba(108, 99, 255, 0.3);
+    box-shadow: 0 4px 16px rgba(110, 110, 128, 0.25);
 }
 
 .exam-papers__download-btn:active {
@@ -354,9 +346,7 @@
 }
 
 
-/* ══════════════════════════════════════════════════
- *  Responsive
- * ══════════════════════════════════════════════════ */
+/* ── Responsive ── */
 @media (max-width: 768px) {
     .exam-papers {
         padding: var(--space-4) var(--space-3);

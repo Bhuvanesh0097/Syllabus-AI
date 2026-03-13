@@ -1,10 +1,12 @@
 /* ═══════════════════════════════════════════════════════════════
-   SUBJECT CARD — Dashboard Card Component
+   SUBJECT CARD — Dashboard Card Component (Glassmorphism)
    ═══════════════════════════════════════════════════════════════ */
 
 .subject-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
+  background: var(--glass-bg-medium);
+  backdrop-filter: blur(var(--glass-blur-lg));
+  -webkit-backdrop-filter: blur(var(--glass-blur-lg));
+  border: 1px solid rgba(0, 0, 0, 0.06);
   border-radius: var(--radius-xl);
   padding: var(--space-6);
   cursor: pointer;
@@ -12,6 +14,7 @@
   position: relative;
   overflow: hidden;
   animation: fadeInUp var(--duration-slow) var(--ease-smooth) both;
+  box-shadow: var(--glass-inner-glow);
 }
 
 .subject-card::before {
@@ -27,10 +30,12 @@
 }
 
 .subject-card:hover {
-  background: var(--bg-card-hover);
-  border-color: var(--border-medium);
+  background: var(--glass-bg-strong);
+  border-color: rgba(0, 0, 0, 0.08);
   transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--glass-inner-glow-strong),
+    0 12px 40px rgba(0, 0, 0, 0.1),
+    0 0 25px color-mix(in srgb, var(--subject-color, var(--accent-primary)) 12%, transparent);
 }
 
 .subject-card:hover::before {
@@ -70,15 +75,15 @@
   gap: var(--space-1);
   margin-top: var(--space-4);
   padding-top: var(--space-3);
-  border-top: 1px solid var(--border-subtle);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .subject-card__unit-dot {
   width: 28px;
   height: 28px;
   border-radius: var(--radius-sm);
-  background: var(--bg-glass);
-  border: 1px solid var(--border-subtle);
+  background: var(--glass-bg-light);
+  border: 1px solid rgba(0, 0, 0, 0.06);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -89,8 +94,9 @@
 }
 
 .subject-card:hover .subject-card__unit-dot {
-  border-color: var(--border-accent);
+  border-color: rgba(110, 110, 128, 0.2);
   color: var(--accent-primary);
+  background: rgba(110, 110, 128, 0.06);
 }
 
 .subject-card__action {

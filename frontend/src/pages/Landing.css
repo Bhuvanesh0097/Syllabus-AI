@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
-   LANDING — Setup Form Page
+   LANDING — Setup Form Page (Glassmorphism)
    ═══════════════════════════════════════════════════════════════ */
 
 .landing {
@@ -12,36 +12,36 @@
   overflow: hidden;
 }
 
-/* ── Floating Orbs ── */
+/* ── Floating Orbs — Teal / Purple / Pink ── */
 .landing__orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(100px);
+  filter: blur(120px);
   pointer-events: none;
   animation: float 8s ease-in-out infinite;
 }
 
 .landing__orb--1 {
-  width: 500px;
-  height: 500px;
-  background: rgba(108, 99, 255, 0.12);
+  width: 550px;
+  height: 550px;
+  background: rgba(110, 110, 128, 0.12);
   top: -15%;
   left: -10%;
 }
 
 .landing__orb--2 {
-  width: 400px;
-  height: 400px;
-  background: rgba(159, 122, 234, 0.08);
+  width: 450px;
+  height: 450px;
+  background: rgba(140, 140, 160, 0.1);
   bottom: -10%;
   right: -5%;
   animation-delay: 3s;
 }
 
 .landing__orb--3 {
-  width: 250px;
-  height: 250px;
-  background: rgba(246, 173, 85, 0.06);
+  width: 300px;
+  height: 300px;
+  background: rgba(247, 168, 184, 0.07);
   top: 40%;
   left: 50%;
   animation-delay: 5s;
@@ -71,9 +71,11 @@
 .landing__badge {
   display: inline-flex;
   align-self: flex-start;
-  background: rgba(108, 99, 255, 0.1);
-  border: 1px solid rgba(108, 99, 255, 0.25);
+  background: rgba(110, 110, 128, 0.08);
+  border: 1px solid rgba(110, 110, 128, 0.2);
   color: var(--accent-primary);
+  backdrop-filter: blur(var(--glass-blur-sm));
+  -webkit-backdrop-filter: blur(var(--glass-blur-sm));
 }
 
 .landing__title {
@@ -110,7 +112,9 @@
 }
 
 .landing__feature-item:hover {
-  background: var(--bg-glass);
+  background: var(--glass-bg-light);
+  backdrop-filter: blur(var(--glass-blur-sm));
+  -webkit-backdrop-filter: blur(var(--glass-blur-sm));
   color: var(--text-primary);
 }
 
@@ -141,19 +145,20 @@
 }
 
 
-/* ── Right Panel — Setup Form ── */
+/* ── Right Panel — Setup Form (Glass Ultra) ── */
 
 .landing__form {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
+  background: var(--glass-bg-ultra);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   padding: var(--space-8);
-  border-radius: var(--radius-2xl);
+  border-radius: 24px;
   display: flex;
   flex-direction: column;
   gap: var(--space-5);
   animation: fadeInUp var(--duration-slow) var(--ease-smooth) both;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(var(--glass-blur-xl));
+  -webkit-backdrop-filter: blur(var(--glass-blur-xl));
+  box-shadow: var(--glass-inner-glow-strong), var(--glass-shadow-glow);
 }
 
 .landing__form-header {
@@ -173,14 +178,17 @@
 }
 
 
-/* ── Welcome Back ── */
+/* ── Welcome Back (Glass Card) ── */
 .landing__welcome-back {
   padding: var(--space-4);
-  background: rgba(108, 99, 255, 0.06);
-  border: 1px solid rgba(108, 99, 255, 0.15);
+  background: var(--glass-bg-medium);
+  backdrop-filter: blur(var(--glass-blur-md));
+  -webkit-backdrop-filter: blur(var(--glass-blur-md));
+  border: 1px solid rgba(110, 110, 128, 0.12);
   border-left: 3px solid var(--accent-primary);
   border-radius: var(--radius-lg);
   animation: fadeInUp var(--duration-normal) var(--ease-smooth) both;
+  box-shadow: var(--glass-inner-glow);
 }
 
 .landing__wb-greeting {
@@ -216,13 +224,13 @@
 .landing__wb-suggestion {
   margin-top: var(--space-1);
   padding: var(--space-2) var(--space-3);
-  background: rgba(108, 99, 255, 0.08);
+  background: rgba(110, 110, 128, 0.06);
   border-radius: var(--radius-md);
   color: var(--accent-primary);
 }
 
 
-/* ── Fields ── */
+/* ── Fields (Frosted Glass Inputs) ── */
 .landing__field {
   display: flex;
   flex-direction: column;
@@ -253,8 +261,10 @@
 .landing__input {
   width: 100%;
   padding: var(--space-3) var(--space-4);
-  background: var(--bg-glass);
-  border: 1px solid var(--border-subtle);
+  background: var(--glass-bg-light);
+  backdrop-filter: blur(var(--glass-blur-sm));
+  -webkit-backdrop-filter: blur(var(--glass-blur-sm));
+  border: 1px solid rgba(0, 0, 0, 0.06);
   border-radius: var(--radius-lg);
   color: var(--text-primary);
   font-size: var(--text-base);
@@ -264,8 +274,8 @@
 
 .landing__input:focus {
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.15);
-  background: var(--bg-glass-hover);
+  box-shadow: 0 0 0 3px rgba(110, 110, 128, 0.12), var(--glass-inner-glow);
+  background: var(--glass-bg-medium);
 }
 
 .landing__input::placeholder {
@@ -283,7 +293,7 @@
 
 .landing__static-value {
   padding: var(--space-3) var(--space-4);
-  background: var(--bg-glass);
+  background: var(--glass-bg-light);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   color: var(--text-secondary);
@@ -307,7 +317,7 @@
 }
 
 
-/* ── Section Buttons ── */
+/* ── Section Buttons (Glass Pills) ── */
 .landing__section-options {
   display: flex;
   gap: var(--space-2);
@@ -316,8 +326,10 @@
 .landing__section-btn {
   flex: 1;
   padding: var(--space-3) var(--space-4);
-  background: var(--bg-glass);
-  border: 1px solid var(--border-subtle);
+  background: var(--glass-bg-light);
+  backdrop-filter: blur(var(--glass-blur-sm));
+  -webkit-backdrop-filter: blur(var(--glass-blur-sm));
+  border: 1px solid rgba(0, 0, 0, 0.06);
   border-radius: var(--radius-lg);
   color: var(--text-secondary);
   font-size: var(--text-sm);
@@ -327,19 +339,21 @@
 }
 
 .landing__section-btn:hover {
-  background: var(--bg-glass-hover);
+  background: var(--glass-bg-medium);
   border-color: var(--border-medium);
   color: var(--text-primary);
+  box-shadow: var(--glass-inner-glow);
 }
 
 .landing__section-btn--active {
-  background: rgba(108, 99, 255, 0.12);
-  border-color: var(--accent-primary);
+  background: rgba(110, 110, 128, 0.1);
+  border-color: rgba(110, 110, 128, 0.3);
   color: var(--accent-primary);
+  box-shadow: 0 0 15px rgba(110, 110, 128, 0.08);
 }
 
 
-/* ── Subject Chips ── */
+/* ── Subject Chips (Glass with Color Glow) ── */
 .landing__subject-grid {
   display: flex;
   gap: var(--space-2);
@@ -351,8 +365,10 @@
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-2) var(--space-4);
-  background: var(--bg-glass);
-  border: 1px solid var(--border-subtle);
+  background: var(--glass-bg-light);
+  backdrop-filter: blur(var(--glass-blur-sm));
+  -webkit-backdrop-filter: blur(var(--glass-blur-sm));
+  border: 1px solid rgba(0, 0, 0, 0.06);
   border-radius: var(--radius-full);
   color: var(--text-secondary);
   font-size: var(--text-sm);
@@ -375,15 +391,17 @@
 .landing__subject-chip:hover {
   border-color: var(--chip-color);
   color: var(--text-primary);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--chip-color, var(--accent-primary)) 20%, transparent);
 }
 
 .landing__subject-chip:hover::before {
-  opacity: 0.08;
+  opacity: 0.1;
 }
 
 .landing__subject-chip--active {
   border-color: var(--chip-color);
   color: var(--text-primary);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--chip-color, var(--accent-primary)) 25%, transparent);
 }
 
 .landing__subject-chip--active::before {
@@ -410,7 +428,7 @@
 }
 
 
-/* ── Unit Buttons ── */
+/* ── Unit Buttons (Glass Tiles with Glow) ── */
 .landing__unit-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -423,24 +441,27 @@
   align-items: center;
   gap: var(--space-1);
   padding: var(--space-3) var(--space-2);
-  background: var(--bg-glass);
-  border: 1px solid var(--border-subtle);
+  background: var(--glass-bg-light);
+  backdrop-filter: blur(var(--glass-blur-sm));
+  -webkit-backdrop-filter: blur(var(--glass-blur-sm));
+  border: 1px solid rgba(0, 0, 0, 0.06);
   border-radius: var(--radius-lg);
   cursor: pointer;
   transition: all var(--duration-fast) var(--ease-smooth);
 }
 
 .landing__unit-btn:hover {
-  background: var(--bg-glass-hover);
+  background: var(--glass-bg-medium);
   border-color: var(--border-medium);
   transform: translateY(-2px);
+  box-shadow: var(--glass-inner-glow);
 }
 
 .landing__unit-btn--active {
-  background: rgba(108, 99, 255, 0.18);
+  background: rgba(110, 110, 128, 0.12);
   border-color: var(--chip-color, var(--accent-primary));
   transform: translateY(-2px);
-  box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.3), 0 4px 16px rgba(108, 99, 255, 0.15);
+  box-shadow: 0 0 0 2px rgba(110, 110, 128, 0.2), 0 4px 20px rgba(110, 110, 128, 0.12);
 }
 
 .landing__unit-num {
@@ -453,7 +474,7 @@
 
 .landing__unit-btn--active .landing__unit-num {
   color: var(--chip-color, var(--accent-primary));
-  text-shadow: 0 0 12px rgba(108, 99, 255, 0.4);
+  text-shadow: 0 0 16px rgba(110, 110, 128, 0.4);
 }
 
 .landing__unit-btn:hover .landing__unit-num {
@@ -472,12 +493,12 @@
 }
 
 
-/* ── Submit Button ── */
+/* ── Submit Button (Gradient Teal→Purple Glass) ── */
 .landing__submit-btn {
   width: 100%;
   padding: var(--space-4) var(--space-6);
-  background: rgba(108, 99, 255, 0.08);
-  border: 1px solid rgba(108, 99, 255, 0.15);
+  background: rgba(110, 110, 128, 0.05);
+  border: 1px solid rgba(110, 110, 128, 0.1);
   border-radius: var(--radius-xl);
   color: var(--text-tertiary);
   font-size: var(--text-base);
@@ -498,7 +519,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: var(--accent-gradient-vivid);
+  background: linear-gradient(135deg, #2DE2FF, #9F7AEA, #D4A5FF);
   opacity: 0;
   transition: opacity var(--duration-normal) var(--ease-smooth);
 }
@@ -513,7 +534,7 @@
 }
 
 .landing__submit-btn--ready:hover {
-  box-shadow: 0 6px 35px rgba(108, 99, 255, 0.35);
+  box-shadow: 0 6px 35px rgba(110, 110, 128, 0.25), 0 0 50px rgba(110, 110, 128, 0.1);
   transform: translateY(-2px);
 }
 
@@ -649,7 +670,7 @@
     font-size: var(--text-xs);
   }
 
-  /* Section buttons — ensure they fit */
+  /* Section buttons */
   .landing__section-options {
     gap: var(--space-2);
   }
@@ -659,7 +680,7 @@
     font-size: var(--text-xs);
   }
 
-  /* Subject chips — horizontal scroll to prevent overflow */
+  /* Subject chips — horizontal scroll */
   .landing__subject-grid {
     flex-wrap: nowrap;
     overflow-x: auto;
@@ -680,7 +701,7 @@
     flex-shrink: 0;
   }
 
-  /* Unit grid — keep 5 columns but smaller */
+  /* Unit grid */
   .landing__unit-grid {
     grid-template-columns: repeat(5, 1fr);
     gap: var(--space-2);
@@ -711,7 +732,6 @@
     font-size: var(--text-xs);
   }
 
-  /* Welcome back card */
   .landing__welcome-back {
     padding: var(--space-3);
   }

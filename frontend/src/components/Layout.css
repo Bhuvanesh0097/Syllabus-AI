@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
-   LAYOUT — App Shell + Mobile Header
+   LAYOUT — App Shell + Mobile Header (Glassmorphism)
    ═══════════════════════════════════════════════════════════════ */
 
 .layout {
@@ -19,7 +19,7 @@
   margin-left: var(--sidebar-collapsed);
 }
 
-/* ── Mobile Header Bar ── */
+/* ── Mobile Header Bar (Glass) ── */
 .mobile-header {
   display: none;
   position: fixed;
@@ -27,12 +27,15 @@
   left: 0;
   right: 0;
   height: 56px;
-  background: var(--bg-secondary);
-  border-bottom: 1px solid var(--border-subtle);
+  background: var(--glass-bg-medium);
+  backdrop-filter: blur(var(--glass-blur-lg));
+  -webkit-backdrop-filter: blur(var(--glass-blur-lg));
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   z-index: 90;
   align-items: center;
   padding: 0 var(--space-4);
   gap: var(--space-3);
+  box-shadow: var(--glass-inner-glow), 0 1px 15px rgba(0, 0, 0, 0.12);
 }
 
 .mobile-header__menu-btn {
@@ -105,15 +108,15 @@
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   z-index: 99;
   animation: fadeIn 0.2s ease;
 }
 
 
-/* ── Desktop Back Button ── */
+/* ── Desktop Back Button (Glass Pill) ── */
 .main-content__back-btn {
   position: sticky;
   top: var(--space-4);
@@ -124,23 +127,23 @@
   gap: var(--space-2);
   padding: var(--space-2) var(--space-4);
   margin: var(--space-4) 0 0 var(--space-4);
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border-subtle);
+  background: var(--glass-bg-medium);
+  backdrop-filter: blur(var(--glass-blur-md));
+  -webkit-backdrop-filter: blur(var(--glass-blur-md));
+  border: 1px solid rgba(0, 0, 0, 0.06);
   border-radius: var(--radius-full);
   color: var(--text-secondary);
   font-size: var(--text-sm);
   font-weight: 600;
   cursor: pointer;
   transition: all var(--duration-normal) var(--ease-smooth);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
 }
 
 .main-content__back-btn:hover {
-  background: var(--bg-secondary);
+  background: var(--glass-bg-strong);
   color: var(--text-primary);
-  border-color: var(--accent-primary);
-  box-shadow: 0 0 16px rgba(139, 92, 246, 0.15);
+  border-color: rgba(110, 110, 128, 0.2);
+  box-shadow: 0 0 16px rgba(110, 110, 128, 0.1);
   transform: translateX(-2px);
 }
 

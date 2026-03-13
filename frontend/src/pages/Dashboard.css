@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
-   DASHBOARD — Subject Selection Grid
+   DASHBOARD — Subject Selection Grid (Glassmorphism)
    ═══════════════════════════════════════════════════════════════ */
 
 .dashboard {
@@ -31,9 +31,11 @@
 }
 
 .dashboard__meta .badge {
-  background: rgba(108, 99, 255, 0.1);
-  border: 1px solid rgba(108, 99, 255, 0.25);
+  background: rgba(110, 110, 128, 0.08);
+  border: 1px solid rgba(110, 110, 128, 0.2);
   color: var(--accent-primary);
+  backdrop-filter: blur(var(--glass-blur-sm));
+  -webkit-backdrop-filter: blur(var(--glass-blur-sm));
 }
 
 .dashboard__notice {
@@ -43,6 +45,8 @@
   border-radius: var(--radius-lg);
   font-size: var(--text-sm);
   color: #F6AD55;
+  backdrop-filter: blur(var(--glass-blur-sm));
+  -webkit-backdrop-filter: blur(var(--glass-blur-sm));
 }
 
 .dashboard__grid {
@@ -60,8 +64,10 @@
 .dashboard__skeleton {
   height: 180px;
   border-radius: var(--radius-xl);
-  background: var(--bg-glass);
-  border: 1px solid var(--border-subtle);
+  background: var(--glass-bg-light);
+  backdrop-filter: blur(var(--glass-blur-sm));
+  -webkit-backdrop-filter: blur(var(--glass-blur-sm));
+  border: 1px solid rgba(0, 0, 0, 0.06);
   position: relative;
   overflow: hidden;
 }
@@ -70,7 +76,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(108, 99, 255, 0.04), transparent);
+  background: linear-gradient(90deg, transparent, rgba(110, 110, 128, 0.04), transparent);
   background-size: 200% 100%;
   animation: shimmer 2s infinite;
 }
@@ -78,9 +84,12 @@
 .dashboard__footer {
   text-align: center;
   padding: var(--space-5);
-  background: var(--bg-glass);
-  border: 1px solid var(--border-subtle);
+  background: var(--glass-bg-light);
+  backdrop-filter: blur(var(--glass-blur-md));
+  -webkit-backdrop-filter: blur(var(--glass-blur-md));
+  border: 1px solid rgba(0, 0, 0, 0.06);
   border-radius: var(--radius-xl);
+  box-shadow: var(--glass-inner-glow);
 }
 
 .dashboard__footer p {
