@@ -76,7 +76,7 @@ function Sidebar({ collapsed, onToggle, activePage, onNavigate, studentInfo, mob
                 {/* ── Brand ── */}
                 <div className="sidebar__brand">
                     <div className="sidebar__logo" onClick={() => onNavigate('landing')}>
-                        <span className="sidebar__logo-icon">✦</span>
+                        <img src="/nexora-logo.png" alt="Nexora" className="sidebar__logo-icon" />
                         {!collapsed && (
                             <div className="sidebar__logo-text">
                                 <span className="sidebar__logo-name">{APP_INFO.name}</span>

@@ -67,7 +67,7 @@ function Layout({ children, activePage, onNavigate, studentInfo, canGoBack, onGo
                     </button>
                 )}
                 <div className="mobile-header__brand">
-                    <span className="mobile-header__logo">✦</span>
+                    <img src="/nexora-logo.png" alt="Nexora" className="mobile-header__logo" />
                     <span className="mobile-header__title">Nexora</span>
                 </div>
                 {canGoBack ? (

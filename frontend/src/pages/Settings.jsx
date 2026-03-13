@@ -147,7 +147,7 @@ function Settings({ settings: appSettings, onUpdateSettings }) {
 
                     <div className="settings__about-card">
                         <div className="settings__about-logo">
-                            <span className="settings__about-logo-icon">✦</span>
+                            <img src="/nexora-logo.png" alt="Nexora" className="settings__about-logo-icon" />
                             <div>
                                 <h3 className="settings__about-name">{APP_INFO.name}</h3>
                                 <span className="settings__about-tagline">{APP_INFO.tagline}</span>

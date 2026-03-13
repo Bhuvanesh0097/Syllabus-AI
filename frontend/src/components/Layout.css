@@ -83,11 +83,9 @@
 }
 
 .mobile-header__logo {
-  font-size: var(--text-xl);
-  background: var(--accent-gradient-vivid);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
 }
 
 .mobile-header__title {

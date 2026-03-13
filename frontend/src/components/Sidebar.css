@@ -54,12 +54,9 @@
 }
 
 .sidebar__logo-icon {
-  font-size: var(--text-2xl);
-  background: var(--accent-gradient-vivid);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: float 3s ease-in-out infinite;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
   flex-shrink: 0;
 }
 
