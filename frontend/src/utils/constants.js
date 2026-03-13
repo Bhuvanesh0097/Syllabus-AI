@@ -49,7 +49,7 @@ export const ANSWER_STYLES = [
 ];
 
 export const APP_INFO = {
-    name: 'Syllabus AI',
+    name: 'Nexora',
     version: '1.0.0',
     tagline: 'Your Intelligent Study Companion',
     department: 'Computer Science Engineering',

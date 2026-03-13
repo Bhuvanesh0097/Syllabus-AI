@@ -199,4 +199,8 @@
     margin-left: 0 !important;
     padding-top: 56px;
   }
+
+  .main-content__back-btn {
+    display: none;
+  }
 }

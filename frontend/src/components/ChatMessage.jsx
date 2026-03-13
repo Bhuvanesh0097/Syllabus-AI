@@ -90,7 +90,7 @@ function ChatMessage({ message, isLast }) {
             <div className="chat-msg__content">
                 <div className="chat-msg__header">
                     <span className="chat-msg__sender">
-                        {isUser ? 'You' : 'Syllabus AI'}
+                        {isUser ? 'You' : 'Nexora'}
                     </span>
                     <span className="chat-msg__time">
                         {new Date(message.timestamp).toLocaleTimeString([], {

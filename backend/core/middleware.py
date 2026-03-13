@@ -1,5 +1,5 @@
 """
-Middleware configuration for Syllabus AI Study Assistant.
+Middleware configuration for Nexora Study Assistant.
 Handles CORS, request logging, and error formatting.
 """
 

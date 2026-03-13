@@ -1,5 +1,5 @@
 """
-Syllabus AI Study Assistant — Main Application
+Nexora Study Assistant — Main Application
 ===============================================
 FastAPI entry point with modular route registration,
 middleware setup, and health monitoring.
@@ -149,7 +149,7 @@ async def api_status():
     """Quick API status check."""
     return {
         "success": True,
-        "message": "Syllabus AI Study Assistant is running",
+        "message": "Nexora Study Assistant is running",
         "modules": {
             "subjects": "active",
             "chat": "active",

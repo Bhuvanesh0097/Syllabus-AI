@@ -72,7 +72,7 @@ def _generate_whatsapp_link(rating: int, comment: str, student_name: str = "") -
 
     # Format the message
     lines = [
-        "📋 *Syllabus AI — Student Feedback*",
+        "📋 *Nexora — Student Feedback*",
         "",
         f"⭐ *Rating:* {stars} ({rating}/5)",
     ]
@@ -86,7 +86,7 @@ def _generate_whatsapp_link(rating: int, comment: str, student_name: str = "") -
     lines.append("")
     lines.append(f"📅 *Date:* {datetime.now().strftime('%d %b %Y, %I:%M %p')}")
     lines.append("")
-    lines.append("— Sent from Syllabus AI Study Assistant")
+    lines.append("— Sent from Nexora Study Assistant")
 
     message = "\n".join(lines)
     encoded = urllib.parse.quote(message)

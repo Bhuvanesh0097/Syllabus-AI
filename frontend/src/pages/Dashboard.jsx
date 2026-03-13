@@ -80,14 +80,6 @@ function Dashboard({ onSelectSubject }) {
                     ))}
                 </div>
             )}
-
-            <div className="dashboard__footer animate-fade-in">
-                <p>
-                    📄 Upload your syllabus documents to power the AI responses.
-                    <br />
-                    All answers are <strong>grounded strictly</strong> in your uploaded materials.
-                </p>
-            </div>
         </div>
     );
 }

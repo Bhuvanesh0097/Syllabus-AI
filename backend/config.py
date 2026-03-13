@@ -1,5 +1,5 @@
 """
-Configuration management for Syllabus AI Study Assistant.
+Configuration management for Nexora Study Assistant.
 Loads environment variables and provides typed settings across the application.
 """
 
@@ -14,7 +14,7 @@ class Settings(BaseSettings):
     """Application-wide settings loaded from environment variables."""
 
     # ── Application ──────────────────────────────────────────────
-    app_name: str = "Syllabus AI Study Assistant"
+    app_name: str = "Nexora Study Assistant"
     app_version: str = "1.0.0"
     app_env: str = Field(default="development", alias="APP_ENV")
     app_port: int = Field(default=8000, alias="APP_PORT")

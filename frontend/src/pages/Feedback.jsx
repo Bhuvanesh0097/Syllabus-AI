@@ -97,7 +97,7 @@ function Feedback({ studentInfo }) {
             <div className="feedback__header">
                 <h1 className="feedback__title">💬 Feedback</h1>
                 <p className="feedback__subtitle">
-                    Help us improve Syllabus AI — your rating goes directly to our WhatsApp!
+                    Help us improve Nexora — your rating goes directly to our WhatsApp!
                 </p>
             </div>
 
@@ -203,10 +203,10 @@ function Feedback({ studentInfo }) {
  */
 function _buildWhatsAppLink(rating, comment, name) {
     const stars = '⭐'.repeat(rating) + '☆'.repeat(5 - rating);
-    let msg = `📋 *Syllabus AI — Student Feedback*\n\n⭐ *Rating:* ${stars} (${rating}/5)`;
+    let msg = `📋 *Nexora — Student Feedback*\n\n⭐ *Rating:* ${stars} (${rating}/5)`;
     if (name) msg += `\n👤 *Student:* ${name}`;
     if (comment) msg += `\n💬 *Comment:* ${comment}`;
-    msg += `\n\n— Sent from Syllabus AI Study Assistant`;
+    msg += `\n\n— Sent from Nexora Study Assistant`;
     return `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(msg)}`;
 }
 

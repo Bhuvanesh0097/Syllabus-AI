@@ -1,5 +1,5 @@
 """
-Core exceptions for Syllabus AI Study Assistant.
+Core exceptions for Nexora Study Assistant.
 Provides structured error handling across all modules.
 """
 

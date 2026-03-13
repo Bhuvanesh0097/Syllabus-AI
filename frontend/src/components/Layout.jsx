@@ -68,7 +68,7 @@ function Layout({ children, activePage, onNavigate, studentInfo, canGoBack, onGo
                 )}
                 <div className="mobile-header__brand">
                     <span className="mobile-header__logo">✦</span>
-                    <span className="mobile-header__title">Syllabus AI</span>
+                    <span className="mobile-header__title">Nexora</span>
                 </div>
                 {canGoBack ? (
                     <button

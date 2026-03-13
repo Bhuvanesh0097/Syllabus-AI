@@ -118,7 +118,6 @@ function StudyMode({ subjectCode, studentInfo, onBack }) {
         return (
             <div className="study-mode animate-fade-in">
                 <div className="study-mode__header">
-                    <button className="btn btn-ghost" onClick={onBack}>← Back</button>
                     <div className="study-mode__title-group">
                         <span className="study-mode__icon">{subject?.icon}</span>
                         <div>

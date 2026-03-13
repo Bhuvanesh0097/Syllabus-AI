@@ -148,7 +148,7 @@ function Landing({ onStartPreparation }) {
                     </div>
 
                     <h1 className="landing__title">
-                        <span className="gradient-text-vivid">Syllabus AI</span>
+                        <span className="gradient-text-vivid">Nexora</span>
                     </h1>
 
                     <p className="landing__subtitle">
