@@ -19,6 +19,7 @@ function Chat({ subjectCode: initialSubjectCode, initialUnit, studentInfo, onBac
     const [showNewChatPanel, setShowNewChatPanel] = useState(false);
     const [newChatSubject, setNewChatSubject] = useState('');
     const [newChatUnit, setNewChatUnit] = useState('');
+    const [showScrollBtn, setShowScrollBtn] = useState(false);
 
     // Use chat state lifted from App.jsx so it persists across page switches
     const {
@@ -33,12 +34,34 @@ function Chat({ subjectCode: initialSubjectCode, initialUnit, studentInfo, onBac
         clearChat,
     } = chatState;
     const messagesEndRef = useRef(null);
+    const messagesContainerRef = useRef(null);
     const subject = SUBJECTS[activeSubject];
 
     // Auto-scroll to bottom on new messages
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [messages]);
+
+    // Track scroll position to show/hide the scroll-to-bottom button
+    useEffect(() => {
+        const container = messagesContainerRef.current;
+        if (!container) return;
+
+        const handleScroll = () => {
+            const { scrollTop, scrollHeight, clientHeight } = container;
+            // Show button when scrolled up more than 150px from the bottom
+            const isNearBottom = scrollHeight - scrollTop - clientHeight < 150;
+            setShowScrollBtn(!isNearBottom);
+        };
+
+        container.addEventListener('scroll', handleScroll, { passive: true });
+        return () => container.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    // Scroll to the latest message
+    const scrollToBottom = useCallback(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, []);
 
     // ── Auto-trigger AI greeting when unit is selected ──
     useEffect(() => {
@@ -231,7 +254,7 @@ function Chat({ subjectCode: initialSubjectCode, initialUnit, studentInfo, onBac
             )}
 
             {/* ── Messages ── */}
-            <div className="chat-page__messages">
+            <div className="chat-page__messages" ref={messagesContainerRef}>
                 {/* Loading state for greeting generation */}
                 {messages.length === 0 && isLoading && (
                     <div className="chat-page__greeting-loading animate-fade-in">
@@ -281,6 +304,18 @@ function Chat({ subjectCode: initialSubjectCode, initialUnit, studentInfo, onBac
 
                 <div ref={messagesEndRef} />
             </div>
+
+            {/* ── Scroll to Bottom Button ── */}
+            {showScrollBtn && (
+                <button
+                    className="chat-page__scroll-bottom"
+                    onClick={scrollToBottom}
+                    aria-label="Scroll to latest message"
+                    title="Jump to latest message"
+                >
+                    ↓
+                </button>
+            )}
 
             {/* ── Input ── */}
             <div className="chat-page__input-area">

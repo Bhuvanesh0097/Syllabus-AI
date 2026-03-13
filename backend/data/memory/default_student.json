@@ -1,6 +1,6 @@
 {
   "student_id": "default_student",
-  "name": "Hax",
+  "name": "hari",
   "department": "CSE",
   "year": "2nd Year",
   "semester": "4th Semester",
@@ -84,9 +84,9 @@
             "Summarize: what is java"
           ],
           "questions_asked": [],
-          "last_visited": "2026-03-10T16:55:22.922175",
+          "last_visited": "2026-03-12T09:31:36.162583",
           "confidence": 0.0,
-          "interaction_count": 13
+          "interaction_count": 15
         },
         "5": {
           "topics_studied": [
@@ -129,13 +129,13 @@
             "i want same example from pdf"
           ],
           "questions_asked": [],
-          "last_visited": "2026-03-10T14:10:24.269532",
+          "last_visited": "2026-03-12T09:24:32.830607",
           "confidence": 0.0,
-          "interaction_count": 4
+          "interaction_count": 5
         }
       },
-      "total_interactions": 30,
-      "last_active": "2026-03-11T07:34:54.188776"
+      "total_interactions": 33,
+      "last_active": "2026-03-12T09:31:36.162583"
     },
     "COA": {
       "units": {
@@ -176,9 +176,9 @@
             "Summarize: On 6 and 9 August 1945, the United States detonated two atomic bombs over the Japanese ci"
           ],
           "questions_asked": [],
-          "last_visited": "2026-03-10T15:43:44.818883",
+          "last_visited": "2026-03-13T09:01:04.143869",
           "confidence": 0.0,
-          "interaction_count": 8
+          "interaction_count": 9
         },
         "5": {
           "topics_studied": [
@@ -195,8 +195,8 @@
           "interaction_count": 9
         }
       },
-      "total_interactions": 35,
-      "last_active": "2026-03-10T15:43:44.818883"
+      "total_interactions": 36,
+      "last_active": "2026-03-13T09:01:04.143869"
     },
     "DM": {
       "units": {
@@ -214,8 +214,8 @@
       "last_active": "2026-03-08T07:45:19.375362"
     }
   },
-  "total_interactions": 96,
-  "last_active": "2026-03-11T07:36:15.468196",
+  "total_interactions": 100,
+  "last_active": "2026-03-13T09:01:04.143869",
   "first_seen": "2026-03-07T06:20:21.695595",
   "sessions": [
     {
@@ -553,6 +553,30 @@
       "unit_number": 2,
       "type": "study",
       "timestamp": "2026-03-11T07:36:15.407784"
+    },
+    {
+      "subject_code": "APJ",
+      "unit_number": 1,
+      "type": "study",
+      "timestamp": "2026-03-12T09:24:32.809590"
+    },
+    {
+      "subject_code": "APJ",
+      "unit_number": 2,
+      "type": "study",
+      "timestamp": "2026-03-12T09:30:24.858605"
+    },
+    {
+      "subject_code": "APJ",
+      "unit_number": 2,
+      "type": "study",
+      "timestamp": "2026-03-12T09:31:36.127067"
+    },
+    {
+      "subject_code": "COA",
+      "unit_number": 2,
+      "type": "study",
+      "timestamp": "2026-03-13T09:01:04.080248"
     }
   ]
 }

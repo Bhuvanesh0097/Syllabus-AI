@@ -65,6 +65,7 @@ function Sidebar({ collapsed, onToggle, activePage, onNavigate, studentInfo, mob
         { id: 'study-plan', label: 'Study Plan', icon: '◎' },
         { id: 'documents', label: 'Knowledge Base', icon: '🔒', adminOnly: true },
         { id: 'chat', label: 'AI Chat', icon: '◉' },
+        { id: 'exam-papers', label: 'Exam Papers', icon: '📄' },
         { id: 'feedback', label: 'Feedback', icon: '💬' },
         { id: 'settings', label: 'Settings', icon: '⚙' },
     ];

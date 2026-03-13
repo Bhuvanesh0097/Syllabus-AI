@@ -14,6 +14,7 @@ import StudyPlan from './pages/StudyPlan';
 import Documents from './pages/Documents';
 import Settings from './pages/Settings';
 import Feedback from './pages/Feedback';
+import ExamPapers from './pages/ExamPapers';
 
 const DEFAULT_SETTINGS = { tone: 'professional', darkMode: true };
 
@@ -140,6 +141,8 @@ function App() {
             onBack={() => navigate('dashboard')}
           />
         );
+      case 'exam-papers':
+        return <ExamPapers />;
       case 'feedback':
         return (
           <Feedback
