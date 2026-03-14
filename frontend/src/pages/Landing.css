@@ -68,6 +68,20 @@
   gap: var(--space-4);
 }
 
+.landing__brand-logo {
+  display: flex;
+  align-items: center;
+}
+
+.landing__brand-logo-img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  border-radius: var(--radius-xl);
+  filter: drop-shadow(0 0 20px rgba(110, 110, 128, 0.15));
+  animation: float 3s ease-in-out infinite;
+}
+
 .landing__badge {
   display: inline-flex;
   align-self: flex-start;

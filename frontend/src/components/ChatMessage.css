@@ -26,6 +26,15 @@
   background: var(--accent-gradient-vivid);
   color: white;
   box-shadow: 0 0 12px rgba(110, 110, 128, 0.15);
+  overflow: hidden;
+  padding: 0;
+}
+
+.chat-msg__avatar-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
 }
 
 .chat-msg--user .chat-msg__avatar {

@@ -143,6 +143,10 @@ function Landing({ onStartPreparation }) {
             <div className="landing__container">
                 {/* ── Left Panel: Branding ── */}
                 <div className="landing__brand animate-fade-in-up">
+                    <div className="landing__brand-logo">
+                        <img src="/nexora-logo.png" alt="Nexora" className="landing__brand-logo-img" />
+                    </div>
+
                     <div className="landing__badge badge badge-accent">
                         ✦ AI-Powered Study Assistant
                     </div>

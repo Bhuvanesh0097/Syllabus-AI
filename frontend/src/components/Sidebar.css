@@ -58,6 +58,7 @@
   height: 32px;
   object-fit: contain;
   flex-shrink: 0;
+  border-radius: var(--radius-md);
 }
 
 .sidebar__logo-text {

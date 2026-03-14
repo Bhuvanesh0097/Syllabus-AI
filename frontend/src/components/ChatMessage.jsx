@@ -84,7 +84,7 @@ function ChatMessage({ message, isLast }) {
             className={`chat-msg ${isUser ? 'chat-msg--user' : 'chat-msg--ai'} ${isError ? 'chat-msg--error' : ''} ${isGreeting ? 'chat-msg--greeting' : ''} ${isLast ? 'animate-fade-in-up' : ''}`}
         >
             <div className="chat-msg__avatar">
-                {isUser ? '👤' : '✦'}
+                {isUser ? '👤' : <img src="/nexora-logo.png" alt="Nexora" className="chat-msg__avatar-logo" />}
             </div>
 
             <div className="chat-msg__content">

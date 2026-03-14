@@ -366,14 +366,14 @@ function StudyPlan({ onBack, studentInfo, persistedState, onStateChange }) {
                             {refineMessages.map((msg, i) => (
                                 <div key={i} className={`sp__refine-msg sp__refine-msg--${msg.role} ${msg.isError ? 'sp__refine-msg--error' : ''}`}>
                                     <span className="sp__refine-msg-avatar">
-                                        {msg.role === 'user' ? '👤' : '✦'}
+                                        {msg.role === 'user' ? '👤' : <img src="/nexora-logo.png" alt="Nexora" className="sp__refine-avatar-logo" />}
                                     </span>
                                     <span className="sp__refine-msg-text">{msg.content}</span>
                                 </div>
                             ))}
                             {refineLoading && (
                                 <div className="sp__refine-msg sp__refine-msg--assistant animate-fade-in">
-                                    <span className="sp__refine-msg-avatar">✦</span>
+                                    <span className="sp__refine-msg-avatar"><img src="/nexora-logo.png" alt="Nexora" className="sp__refine-avatar-logo" /></span>
                                     <span className="sp__refine-msg-text">
                                         <span className="sp__refine-typing">
                                             <span /><span /><span />

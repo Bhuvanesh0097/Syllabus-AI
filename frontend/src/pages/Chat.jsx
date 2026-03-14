@@ -272,7 +272,7 @@ function Chat({ subjectCode: initialSubjectCode, initialUnit, studentInfo, onBac
                 {/* No-messages empty state only if session started and not loading */}
                 {messages.length === 0 && !isLoading && sessionStarted && (
                     <div className="chat-page__empty animate-fade-in">
-                        <div className="chat-page__empty-icon">✦</div>
+                        <div className="chat-page__empty-icon"><img src="/nexora-logo.png" alt="Nexora" className="chat-page__empty-logo" /></div>
                         <h2>Ready to Study</h2>
                         <p>
                             Ask me anything about{' '}
@@ -293,7 +293,7 @@ function Chat({ subjectCode: initialSubjectCode, initialUnit, studentInfo, onBac
                 {/* Typing indicator for follow-up messages */}
                 {isLoading && messages.length > 0 && (
                     <div className="chat-page__typing animate-fade-in">
-                        <div className="chat-page__typing-avatar">✦</div>
+                        <div className="chat-page__typing-avatar"><img src="/nexora-logo.png" alt="Nexora" className="chat-page__typing-logo" /></div>
                         <div className="chat-page__typing-dots">
                             <span />
                             <span />

@@ -170,8 +170,9 @@
 .sp__refine-msg--user { background: rgba(110, 110, 128, 0.06); border: 1px solid rgba(110, 110, 128, 0.12); }
 .sp__refine-msg--assistant { background: var(--glass-bg-light); border: 1px solid rgba(0, 0, 0, 0.06); }
 .sp__refine-msg--error .sp__refine-msg-text { color: #f87171; }
-.sp__refine-msg-avatar { font-size: var(--text-sm); flex-shrink: 0; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-full); background: var(--glass-bg-light); }
+.sp__refine-msg-avatar { font-size: var(--text-sm); flex-shrink: 0; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-full); background: var(--glass-bg-light); overflow: hidden; }
 .sp__refine-msg--user .sp__refine-msg-avatar { background: rgba(110, 110, 128, 0.12); }
+.sp__refine-avatar-logo { width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
 .sp__refine-msg-text { color: var(--text-primary); flex: 1; }
 
 /* Typing animation */
