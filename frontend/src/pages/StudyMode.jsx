@@ -17,6 +17,7 @@ function StudyMode({ subjectCode, studentInfo, onBack }) {
     const [loadingQuestions, setLoadingQuestions] = useState(false);
     const [activeQuestion, setActiveQuestion] = useState(null); // question being answered
     const [answer, setAnswer] = useState(null);
+    const [answerImages, setAnswerImages] = useState([]);
     const [loadingAnswer, setLoadingAnswer] = useState(false);
     const [error, setError] = useState(null);
     const [unitTitle, setUnitTitle] = useState('');
@@ -58,6 +59,7 @@ function StudyMode({ subjectCode, studentInfo, onBack }) {
 
         setActiveQuestion(question);
         setAnswer(null);
+        setAnswerImages([]);
         setLoadingAnswer(true);
 
         try {
@@ -69,9 +71,11 @@ function StudyMode({ subjectCode, studentInfo, onBack }) {
                 studentSection
             );
             setAnswer(response.answer || 'No answer generated.');
+            setAnswerImages(response.images || []);
         } catch (err) {
             console.error('Failed to fetch answer:', err);
             setAnswer(`⚠️ Error: ${err.message}`);
+            setAnswerImages([]);
         } finally {
             setLoadingAnswer(false);
         }
@@ -97,6 +101,7 @@ function StudyMode({ subjectCode, studentInfo, onBack }) {
         setSelectedMode(null);
         setQuestions([]);
         setAnswer(null);
+        setAnswerImages([]);
         setActiveQuestion(null);
         setError(null);
     };
@@ -105,6 +110,7 @@ function StudyMode({ subjectCode, studentInfo, onBack }) {
         setSelectedMode(null);
         setQuestions([]);
         setAnswer(null);
+        setAnswerImages([]);
         setActiveQuestion(null);
     };
 
@@ -364,6 +370,7 @@ function StudyMode({ subjectCode, studentInfo, onBack }) {
                                     message={{
                                         role: 'assistant',
                                         content: answer,
+                                        images: answerImages,
                                         timestamp: new Date().toISOString(),
                                     }}
                                     isLast={true}

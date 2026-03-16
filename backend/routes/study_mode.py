@@ -8,10 +8,9 @@ import uuid
 import logging
 from datetime import datetime
 from pathlib import Path
-from typing import Optional, Dict
+from typing import Optional, Dict, List
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
-from typing import List
 from services import llm_service, rag_service
 
 logger = logging.getLogger("syllabus_ai")
@@ -82,6 +81,7 @@ class AnswerResponse(BaseModel):
     mode: str
     subject_code: str
     unit_number: int
+    images: List[Dict] = []  # RAG images from uploaded PDFs
     timestamp: datetime = Field(default_factory=datetime.utcnow)
 
 
@@ -146,11 +146,12 @@ async def get_study_questions(request: StudyModeRequest):
 # GET ANSWER — Generate exam-ready answer for a specific question
 # ═══════════════════════════════════════════════════════════════
 
-@router.post("/answer", response_model=AnswerResponse)
+@router.post("/answer")
 async def get_question_answer(request: AnswerRequest):
     """
     Generate an exam-ready answer for a specific question.
     Uses RAG context + LLM with appropriate answer style.
+    Also retrieves relevant images from uploaded PDFs.
     """
     subject_info = _get_subject_info(request.subject_code)
     subject_name = subject_info.get("name", request.subject_code)
@@ -169,6 +170,19 @@ async def get_question_answer(request: AnswerRequest):
     except Exception as e:
         logger.warning(f"RAG retrieval failed for answer: {e}")
 
+    # Step 1.5: Retrieve relevant images from uploaded PDFs (RAG-only)
+    images = []
+    try:
+        from services import image_service
+        images = await image_service.retrieve_relevant_images(
+            query=request.question,
+            subject_code=request.subject_code,
+            unit_number=request.unit_number,
+            section=request.section
+        )
+    except Exception:
+        pass
+
     # Step 2: Generate the answer via existing LLM service
     try:
         answer, quality = await llm_service.generate_response(
@@ -185,10 +199,13 @@ async def get_question_answer(request: AnswerRequest):
             detail=f"Failed to generate answer: {str(e)}"
         )
 
-    return AnswerResponse(
-        question=request.question,
-        answer=answer,
-        mode=request.mode,
-        subject_code=request.subject_code,
-        unit_number=request.unit_number,
-    )
+    return {
+        "success": True,
+        "question": request.question,
+        "answer": answer,
+        "mode": request.mode,
+        "subject_code": request.subject_code,
+        "unit_number": request.unit_number,
+        "images": images,
+        "timestamp": datetime.utcnow().isoformat(),
+    }

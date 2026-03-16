@@ -129,13 +129,30 @@ async def upload_document(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to index document: {e}")
 
+    # Step 5: Extract and store images from PDF (non-blocking)
+    image_count = 0
+    if filepath.suffix.lower() == ".pdf":
+        try:
+            from services import image_service
+            image_count = await image_service.process_pdf_images(
+                filepath=str(filepath),
+                subject_code=subject_code,
+                unit_number=unit_number,
+                section=section,
+                source_filename=file.filename
+            )
+        except Exception as e:
+            import logging
+            logging.getLogger("syllabus_ai").warning(f"Image extraction skipped (non-blocking): {e}")
+
+    img_msg = f" Extracted {image_count} images." if image_count > 0 else ""
     return DocumentUploadResponse(
         filename=file.filename,
         subject_code=subject_code,
         unit_number=unit_number,
         section=section,
         chunks_created=count,
-        message=f"Successfully processed and indexed {count} chunks for Section {section or 'General'}."
+        message=f"Successfully processed and indexed {count} chunks for Section {section or 'General'}.{img_msg}"
     )
 
 
@@ -197,6 +214,14 @@ async def delete_document(
     except Exception:
         pass
 
+    # Remove associated images
+    removed_images = 0
+    try:
+        from services import image_service
+        removed_images = await image_service.delete_images_by_source(subject_code, filename, section)
+    except Exception:
+        pass
+
     # Delete file from disk
     try:
         filepath.unlink()
@@ -205,8 +230,9 @@ async def delete_document(
 
     return {
         "success": True,
-        "message": f"Deleted {filename} and removed {removed_chunks} chunks from RAG (Section {section or 'General'}).",
-        "removed_chunks": removed_chunks
+        "message": f"Deleted {filename} and removed {removed_chunks} chunks + {removed_images} images from RAG (Section {section or 'General'}).",
+        "removed_chunks": removed_chunks,
+        "removed_images": removed_images
     }
 
 

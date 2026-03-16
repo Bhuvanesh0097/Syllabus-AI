@@ -129,6 +129,18 @@ class StartSessionResponse(BaseModel):
 
 
 # ═══════════════════════════════════════════════════════════════
+# Image Schemas (RAG Image Retrieval)
+# ═══════════════════════════════════════════════════════════════
+
+class ImageReference(BaseModel):
+    """An image extracted from an uploaded PDF — NEVER AI-generated."""
+    url: str
+    caption: str = ""
+    source_file: str = ""
+    page_number: int = 0
+
+
+# ═══════════════════════════════════════════════════════════════
 # Document Schemas
 # ═══════════════════════════════════════════════════════════════
 

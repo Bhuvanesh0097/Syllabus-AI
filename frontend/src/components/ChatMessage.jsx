@@ -100,13 +100,44 @@ function ChatMessage({ message, isLast }) {
                     </span>
                 </div>
 
-                {isUser ? (
+            {isUser ? (
                     <div className="chat-msg__body">{message.content}</div>
                 ) : (
                     <div
                         className="chat-msg__body chat-msg__markdown"
                         dangerouslySetInnerHTML={{ __html: renderedHtml }}
                     />
+                )}
+
+                {/* RAG Images — extracted from uploaded PDFs, NEVER AI-generated */}
+                {!isUser && message.images && message.images.length > 0 && (
+                    <div className="chat-msg__images">
+                        <div className="chat-msg__images-label">
+                            📎 Diagrams from your notes
+                        </div>
+                        <div className="chat-msg__images-grid">
+                            {message.images.map((img, i) => (
+                                <div key={i} className="chat-msg__image-card">
+                                    <img
+                                        src={img.url || img.public_url}
+                                        alt={img.caption || 'Diagram from notes'}
+                                        className="chat-msg__image"
+                                        loading="lazy"
+                                        onClick={() => window.open(img.url || img.public_url, '_blank')}
+                                    />
+                                    {img.caption && (
+                                        <p className="chat-msg__image-caption">{img.caption}</p>
+                                    )}
+                                    {img.source_file && (
+                                        <span className="chat-msg__image-source">
+                                            📄 {img.source_file}
+                                            {img.page_number != null && ` • Page ${img.page_number + 1}`}
+                                        </span>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 )}
 
                 {message.sources && message.sources.length > 0 && (

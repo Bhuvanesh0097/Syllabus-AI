@@ -108,6 +108,7 @@ function useChat() {
                     content: response.message,
                     timestamp: new Date().toISOString(),
                     sources: response.sources || [],
+                    images: response.images || [],
                     contextSwitch: response.context_switch || null,
                     quality: response.quality || null,
                 };

@@ -268,6 +268,20 @@ async def send_message(request: ChatMessageRequest):
             section=session_section
         )
 
+    # Step 1.5: Retrieve relevant images from uploaded PDFs (RAG-only, never generated)
+    images = []
+    if effective_subject:
+        try:
+            from services import image_service
+            images = await image_service.retrieve_relevant_images(
+                query=request.message,
+                subject_code=effective_subject,
+                unit_number=effective_unit,
+                section=session_section
+            )
+        except Exception:
+            pass
+
     # Enforce syllabus-only rule: if no context retrieved, tell the LLM explicitly
     if not context and effective_subject:
         context = (
@@ -340,7 +354,7 @@ async def send_message(request: ChatMessageRequest):
         except Exception:
             pass
 
-    # Build response — include context_switch and quality info
+    # Build response — include context_switch, quality info, and RAG images
     response = {
         "success": True,
         "chat_id": chat_id,
@@ -348,6 +362,7 @@ async def send_message(request: ChatMessageRequest):
         "subject_code": effective_subject,
         "unit_number": effective_unit,
         "sources": [],
+        "images": images,
         "timestamp": datetime.utcnow().isoformat(),
     }
     if context_switch:
