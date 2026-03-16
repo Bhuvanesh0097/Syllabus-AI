@@ -1,4 +1,4 @@
-# Syllabus AI — Intelligent Study Assistant
+# Nexora — Intelligent Study Assistant
 
 > **AI-powered exam preparation platform for university students**
 > Grounded strictly in uploaded syllabus materials using RAG architecture.
